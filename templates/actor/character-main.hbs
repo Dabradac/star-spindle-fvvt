@@ -1,0 +1,23 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="main">
+  <div class="main-grid">
+    {{> "systems/star-spindle/templates/actor/parts/skills-table.hbs"}}
+    <div class="side-column">
+      {{> "systems/star-spindle/templates/actor/parts/abilities.hbs"}}
+      <section>
+        {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Trait.positivePlural" type="trait" kind="positive"}}
+        {{> "systems/star-spindle/templates/actor/parts/trait-list.hbs" items=traits.positive}}
+      </section>
+      <section>
+        {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Trait.negativePlural" type="trait" kind="negative"}}
+        {{> "systems/star-spindle/templates/actor/parts/trait-list.hbs" items=traits.negative}}
+        {{#if traitsWarning}}<p class="hint warn">{{localize "SPINDLE.Trait.Balance"}}</p>{{/if}}
+      </section>
+      <button type="button" class="rest-button" data-action="longRest"><i class="fa-solid fa-campground"></i> {{localize "SPINDLE.Rest.Long"}}</button>
+    </div>
+  </div>
+
+  <div class="two-columns">
+    {{> "systems/star-spindle/templates/actor/parts/injuries.hbs"}}
+    {{> "systems/star-spindle/templates/actor/parts/effects.hbs"}}
+  </div>
+</section>

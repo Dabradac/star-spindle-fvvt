@@ -1,0 +1,32 @@
+<section>
+  {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label=label type="shipModule" category=category}}
+  <table class="spindle-table item-table module-table">
+    <thead>
+      <tr>
+        <th class="name" rowspan="2">{{localize "SPINDLE.Field.name"}}</th>
+        <th class="wide" rowspan="2">{{localize "SPINDLE.Field.description"}}</th>
+        <th colspan="4">{{localize "SPINDLE.Module.CurrentState"}}</th>
+        <th rowspan="2"></th>
+      </tr>
+      <tr>
+        {{#each @root.moduleStates as |s|}}<th class="state-head {{s.key}}">{{localize s.label}}</th>{{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      {{#each modules as |m|}}
+      <tr class="item draggable state-{{m.item.system.state}}" draggable="true" data-item-id="{{m.item.id}}">
+        <td class="name"><img class="item-img" src="{{m.item.img}}" alt="" data-action="itemUse"><a data-action="itemEdit">{{m.item.name}}</a></td>
+        <td class="wide description-cell">{{{m.item.system.description}}}</td>
+        {{#each m.states as |s|}}
+        <td class="state {{s.key}}">
+          <input type="radio" value="{{s.key}}" data-item-field="system.state" {{checked s.checked}} {{disabled (not @root.editable)}}>
+        </td>
+        {{/each}}
+        <td>{{#with m.item}}{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}{{/with}}</td>
+      </tr>
+      {{else}}
+      <tr><td class="empty" colspan="7">{{localize "SPINDLE.Empty"}}</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>

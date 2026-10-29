@@ -1,0 +1,34 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="cargo">
+  <div class="counter-row {{#if system.cargo.over}}over{{/if}}">
+    <span class="label">{{localize "SPINDLE.Ship.CargoCapacity"}}</span>
+    <span>{{localize "SPINDLE.Current"}}: <strong>{{system.cargo.value}}</strong></span>
+    <label>{{localize "SPINDLE.Max"}}: <input type="number" name="system.cargoMax" value="{{source.cargoMax}}" min="0" step="any"></label>
+  </div>
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Ship.Cargo" type="cargo"}}
+    <table class="spindle-table item-table">
+      <thead>
+        <tr>
+          <th class="name">{{localize "SPINDLE.Ship.CargoItem"}}</th>
+          <th class="wide">{{localize "SPINDLE.Field.storage"}}</th>
+          <th>{{localize "SPINDLE.Field.quantityShort"}}</th>
+          <th>{{localize "SPINDLE.Field.weightTons"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items.cargo as |item|}}
+        <tr class="item draggable" draggable="true" data-item-id="{{item.id}}">
+          <td class="name"><img class="item-img" src="{{item.img}}" alt="" data-action="itemUse"><a data-action="itemEdit">{{item.name}}</a></td>
+          <td class="wide"><input type="text" data-item-field="system.storage" value="{{item.system.storage}}" {{disabled (not @root.editable)}}></td>
+          <td><input type="number" data-item-field="system.quantity" data-dtype="Number" value="{{item.system.quantity}}" min="0" {{disabled (not @root.editable)}}></td>
+          <td><input type="number" data-item-field="system.weight" data-dtype="Number" value="{{item.system.weight}}" min="0" step="any" {{disabled (not @root.editable)}}></td>
+          <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+        </tr>
+        {{else}}
+        <tr><td class="empty" colspan="5">{{localize "SPINDLE.Empty"}}</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</section>

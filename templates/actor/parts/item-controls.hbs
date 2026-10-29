@@ -1,0 +1,11 @@
+<div class="item-controls">
+  {{#if @root.editable}}
+  {{#if isCarryable}}
+  <a data-action="itemToggle" data-field="system.stored" data-tooltip="{{#if system.stored}}SPINDLE.TakeFromStorage{{else}}SPINDLE.PutInStorage{{/if}}"><i class="fa-solid {{#if system.stored}}fa-person-walking-luggage{{else}}fa-box-archive{{/if}}"></i></a>
+  {{/if}}
+  <a data-action="itemEdit" data-tooltip="SPINDLE.Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+  <a data-action="itemDelete" data-tooltip="SPINDLE.Delete"><i class="fa-solid fa-trash"></i></a>
+  {{else}}
+  <a data-action="itemEdit" data-tooltip="SPINDLE.View"><i class="fa-solid fa-eye"></i></a>
+  {{/if}}
+</div>

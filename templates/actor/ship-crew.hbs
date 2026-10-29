@@ -1,0 +1,21 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="crew">
+  <p class="hint">{{localize "SPINDLE.Crew.Hint"}}</p>
+  <ol class="item-list crew-list">
+    {{#each crew as |c|}}
+    <li class="crew-member" data-crew-index="{{c.index}}">
+      <img class="item-img" src="{{c.actor.img}}" alt="" data-action="crewOpen">
+      <a class="item-name" data-action="crewOpen">{{c.actor.name}}</a>
+      <select class="crew-role" data-crew-role="{{c.index}}" {{disabled (not @root.editable)}}>
+        {{selectOptions @root.roleOptions selected=c.role localize=true}}
+      </select>
+      <select data-crew-skill>
+        {{selectOptions @root.skillOptions selected=c.skill localize=true}}
+      </select>
+      <a class="control" data-action="crewRoll" data-tooltip="SPINDLE.RollTooltip"><i class="fa-solid fa-dice-six"></i></a>
+      {{#if @root.editable}}<a class="control" data-action="crewRemove" data-tooltip="SPINDLE.Delete"><i class="fa-solid fa-user-minus"></i></a>{{/if}}
+    </li>
+    {{else}}
+    <li class="empty">{{localize "SPINDLE.Crew.Empty"}}</li>
+    {{/each}}
+  </ol>
+</section>

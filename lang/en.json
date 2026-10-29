@@ -1,0 +1,561 @@
+{
+  "TYPES": {
+    "Actor": {
+      "character": "Character",
+      "npc": "NPC",
+      "ship": "Ship"
+    },
+    "Item": {
+      "weapon": "Weapon",
+      "armor": "Armor",
+      "gear": "Gear",
+      "implant": "Implant / Prosthesis",
+      "trait": "Trait",
+      "specialization": "Specialization",
+      "injury": "Injury / Disease",
+      "shipWeapon": "Ship Weapon",
+      "shipModule": "Module Bay",
+      "shipUpgrade": "Ship Upgrade",
+      "cargo": "Cargo",
+      "ability": "Special Ability"
+    }
+  },
+  "SPINDLE": {
+    "SystemTitle": "Star Spindle",
+    "Name": "Name",
+    "None": "— none —",
+    "Empty": "Empty",
+    "Create": "Create",
+    "Edit": "Edit",
+    "View": "View",
+    "Delete": "Delete",
+    "DeleteTitle": "Delete",
+    "DeleteConfirm": "Delete “{name}”? (Shift+click skips this prompt)",
+    "ToChat": "Show in chat",
+    "AttackAction": "Attack",
+    "Details": "Details",
+    "Description": "Description",
+    "Current": "Current",
+    "Max": "Max",
+    "MaxTooltip": "Maximum is calculated automatically",
+    "Role": "Role",
+    "Tab": {
+      "main": "Character",
+      "gear": "Gear",
+      "relations": "Cabin & Relations",
+      "bio": "Description",
+      "ship": "Ship",
+      "modules": "Modules",
+      "cargo": "Cargo",
+      "crew": "Crew",
+      "log": "Logbook"
+    },
+    "Sheet": {
+      "character": "Character Sheet",
+      "npc": "NPC Sheet",
+      "ship": "Ship Sheet",
+      "item": "Item Sheet"
+    },
+    "Supercredits": "Supercredits",
+    "Reputation": "Reputation",
+    "Level": "Level",
+    "DropSpecialization": "Drop a specialization here",
+    "Health": "Health",
+    "HealthFormula": "Body + Agility",
+    "Will": "Will",
+    "WillFormula": "Intellect + Empathy",
+    "Attributes": "Attribute",
+    "Skills": "Skills",
+    "Total": "Attr.+Skill",
+    "RollTooltip": "Roll (Shift skips the dialog)",
+    "Attribute": {
+      "label": "Attribute",
+      "body": "Body",
+      "agility": "Agility",
+      "intellect": "Intellect",
+      "empathy": "Empathy"
+    },
+    "Skill": {
+      "label": "Skill",
+      "melee": "Melee Combat",
+      "strength": "Strength",
+      "shooting": "Shooting",
+      "dexterity": "Dexterity",
+      "stealth": "Stealth",
+      "piloting": "Piloting",
+      "observation": "Observation",
+      "survival": "Survival",
+      "cybershamanism": "Cybershamanism",
+      "mechanics": "Mechanics",
+      "science": "Science",
+      "healing": "Healing",
+      "influence": "Influence",
+      "leadership": "Leadership",
+      "culture": "Culture",
+      "witchcraft": "Witchcraft"
+    },
+    "Trait": {
+      "positive": "Positive",
+      "negative": "Negative",
+      "positivePlural": "Positive Traits",
+      "negativePlural": "Negative Traits",
+      "ActivatePositive": "Activate (the GM gains a Chernobog token)",
+      "ActivateNegative": "Activate (the GM spends a Chernobog token)",
+      "Activated": "Trait activated",
+      "GmOnly": "Only the GM activates negative traits",
+      "Balance": "Every two positive traits require one negative trait"
+    },
+    "Injuries": "Injuries, Diseases, Temporary Effects",
+    "Effect": {
+      "Plural": "Active Effects",
+      "New": "New Effect",
+      "Toggle": "Toggle",
+      "ItemHint": "Item effects transfer to the owner"
+    },
+    "Encumbrance": "Load, slots",
+    "EncumbranceFormula": "Body×2 + Strength",
+    "EncumbranceBonus": "Bonus to maximum encumbrance",
+    "CraftResources": "Crafting Resources",
+    "Weapons": "Weapons",
+    "Equipment": "Equipment",
+    "SmallItems": "Small Items",
+    "ArmorPlural": "Armor",
+    "Implants": "Implants & Prostheses",
+    "PutInStorage": "Store in cabin",
+    "TakeFromStorage": "Take from cabin",
+    "Cabin": {
+      "title": "My Cabin",
+      "description": "Cabin Description",
+      "storage": "Stored Equipment",
+      "storageHint": "Stored items take no gear slots"
+    },
+    "FactionRelations": "Group Relations with Factions",
+    "ClanRelations": "Group Relations with Clans",
+    "Faction": {
+      "demos": "Demos",
+      "commune": "Commune",
+      "peddlers": "Peddlers",
+      "frontiers": "Frontiers",
+      "church": "United Church",
+      "outcasts": "Outcasts"
+    },
+    "Clan": {
+      "wolf": "Wolf Clan",
+      "eagle": "Eagle Clan",
+      "snake": "Snake Clan",
+      "ram": "Ram Clan",
+      "owl": "Owl Clan",
+      "bear": "Bear Clan"
+    },
+    "Appearance": "Appearance",
+    "Biography": "Biography",
+    "Notes": "Notes",
+    "Field": {
+      "name": "Name",
+      "description": "Description",
+      "quantity": "Quantity",
+      "quantityShort": "Qty",
+      "weightTons": "Weight, t",
+      "modifierShort": "Mod.",
+      "initiative": "Initiative",
+      "initiativeShort": "Init.",
+      "damage": "Damage",
+      "crit": "Critical",
+      "critShort": "Crit.",
+      "range": "Range",
+      "properties": "Properties",
+      "ammo": "Ammo",
+      "ammoValue": "Ammo (current)",
+      "ammoMax": "Ammo (max, 0 = untracked)",
+      "defenseShort": "DC",
+      "traitKind": "Trait type",
+      "startingGear": "Starting gear",
+      "effect": "Effect",
+      "location": "Location",
+      "moduleCategory": "Bay type",
+      "moduleState": "Current state",
+      "storage": "Storage location",
+      "equipped": "Worn / in hand",
+      "stored": "Stored in cabin",
+      "modifier": "Modifier",
+      "bonusTarget": "Modifier applies to",
+      "defense": "Armor class (armor dice)",
+      "skill": "Attack skill",
+      "size": "Weight",
+      "slots": "Slots",
+      "quality": "Quality (−3…+3)",
+      "price": "Price, supercredits",
+      "armorPiercing": "Armor piercing",
+      "automatic": "Automatic",
+      "implantKind": "Kind",
+      "illegal": "Illegal",
+      "abilitySkill": "Skill",
+      "tier": "Skill level",
+      "active": "Active (*)",
+      "used": "Used (until a long rest)",
+      "craft": "Craft",
+      "craftLevel": "Craft level",
+      "variations": "Variations",
+      "recommendedSkills": "Recommended skills",
+      "reputationModifier": "Reputation modifier",
+      "xpActions": "Actions granting extra XP",
+      "traitExamples": "Trait examples",
+      "injuryCode": "d66 code",
+      "lethal": "Can be lethal",
+      "deadline": "Deadline for aid",
+      "period": "Healing period",
+      "strength": "Strength (shock, bleeding, poison…)",
+      "damageType": "Damage type",
+      "ignoresArmor": "Ignores armor",
+      "moduleUpgrades": "Module upgrades",
+      "costPercent": "Cost, % of ship price"
+    },
+    "Ship": {
+      "Name": "Ship Name",
+      "Class": "Class",
+      "Size": "Size",
+      "Hull": "Hull",
+      "HullBonuses": "Hull Bonuses",
+      "Flaw": "Ship Flaw",
+      "BaseCost": "Base Cost",
+      "LastMaintenance": "Last Maintenance",
+      "Debt": "Debt",
+      "DebtInitial": "Initial debt",
+      "DebtRemaining": "Remaining",
+      "DebtMonthly": "Monthly payment",
+      "Attributes": "Attributes",
+      "Attribute": {
+        "durability": "Durability",
+        "energy": "Energy",
+        "maneuverability": "Maneuverability",
+        "signature": "Signature",
+        "armor": "Armor",
+        "speed": "Speed",
+        "fuel": "Fuel"
+      },
+      "Batteries": "B-batteries left",
+      "Criticals": "Critical Hits & Temporary Effects",
+      "ModulesTotal": "Total modules",
+      "Upgrades": "Upgrades",
+      "Upgrade": "Upgrade",
+      "CargoCapacity": "Cargo capacity, tons",
+      "Cargo": "Cargo, Equipment & Gear",
+      "CargoItem": "Cargo",
+      "Logbook": "Logbook",
+      "SizeHint": "Number of segments on the space battlefield",
+      "SystemDamage": "System damage (negative energy)",
+      "Condition": {
+        "wrecked": "Ship disabled",
+        "scrap": "Ship destroyed"
+      },
+      "Initiative": {
+        "captain": "{ship}: captain initiative ({name})",
+        "pilot": "{ship}: pilot initiative ({name}) — lowest result moves first",
+        "captainButton": "Captain initiative",
+        "pilotButton": "Pilot initiative"
+      }
+    },
+    "Module": {
+      "CurrentState": "Current State",
+      "State": {
+        "normal": "Normal",
+        "glitch": "Glitching",
+        "broken": "Broken",
+        "critical": "Critically broken"
+      },
+      "Category": {
+        "base": "Base",
+        "extra": "Additional",
+        "basePlural": "Base Module Bays",
+        "extraPlural": "Additional Module Bays"
+      }
+    },
+    "Crew": {
+      "Empty": "No crew assigned",
+      "Member": "Crew member",
+      "ChooseGunner": "Who is firing?",
+      "NoGunner": "No crew member you own and no assigned player character",
+      "Hint": "Drag characters or NPCs onto the ship sheet to add them to the crew. Crew checks include the ship's maneuverability (piloting), distributed energy and system damage.",
+      "NoRole": "No crew member in the {role} role",
+      "Roles": {
+        "captain": "Captain",
+        "pilot": "Pilot",
+        "engineer": "Engineer",
+        "targeter": "Targeter",
+        "gunner": "Gunner",
+        "cybershaman": "Cybershaman",
+        "passenger": "Passenger"
+      }
+    },
+    "Roll": {
+      "Title": "Roll",
+      "Roll": "Roll",
+      "ExtraSuccesses": "extra successes",
+      "NotOwner": "Only the character's owner or the GM can do this",
+      "NoAmmo": "{name} is out of ammo",
+      "NoTargets": "Target or select a token first",
+      "Bonuses": "Modifiers",
+      "Modifier": "Other modifiers",
+      "Difficulty": "Difficulty",
+      "Help": "Allies' help (up to +3)",
+      "HeroToken": "Hero token",
+      "TargetReputation": "Other party's reputation (blank — irrelevant)",
+      "ReputationDiff": "Reputation difference",
+      "SkillBonus": "Skill effects",
+      "ChecksBonus": "Effects on all checks",
+      "ArmorWeight": "Armor and weapon weight",
+      "Overloaded": "Overloaded",
+      "BeyondRange": "Beyond effective range",
+      "RangeHint": "−3 for each range step beyond the weapon's effective range",
+      "Engaged": "Shooter is engaged in melee",
+      "Locked": "Target is locked by the targeter",
+      "NoLock": "No target lock",
+      "Hint": "Number of d20 = attribute + skill + modifiers. 20 = +2, 17–19 = +1, 1 = −2. Pool 0 — 1d20, only 20 counts; negative pool — 2d20, both must be 20.",
+      "Pool": "Pool",
+      "DiceShort": "d20",
+      "Dice": "Dice",
+      "Mode": {
+        "zero": "Pool 0: roll 1d20, only a 20 succeeds",
+        "desperate": "Negative pool: 2d20, one success only if both are 20"
+      },
+      "Untrained": "{skill} is a professional skill and can't be used untrained"
+    },
+    "ConditionTitle": "Condition",
+    "Condition": {
+      "down": "Incapacitated",
+      "dead": "Dead",
+      "limit": "limit"
+    },
+    "ConditionWill": {
+      "down": "Broken",
+      "dead": "Insane"
+    },
+    "Speed": "Speed, m/turn",
+    "BulkySpeed": "Bulky armor or weapons halve speed",
+    "XP": {
+      "value": "Experience",
+      "next": "Next level at"
+    },
+    "Origin": {
+      "label": "Origin",
+      "placeholder": "Commoners, townsfolk, nobles…",
+      "commoner": "Commoners",
+      "townsfolk": "Townsfolk, orbitals, colonists",
+      "noble": "Nobles"
+    },
+    "Religion": "Patron",
+    "God": {
+      "rod": "Rod",
+      "perun": "Perun",
+      "dazhdbog": "Dazhdbog",
+      "svarog": "Svarog",
+      "yarilo": "Yarilo",
+      "stribog": "Stribog",
+      "lada": "Lada",
+      "khors": "Khors",
+      "morena": "Morena",
+      "single": "The One",
+      "atheist": "Atheist (cannot pray)"
+    },
+    "Blessing": "Blessing",
+    "BlessingHint": "After a service in a temple or chapel the next 3 prayers get +1 die",
+    "HeroTokens": "Hero Tokens",
+    "HeroTokensHint": "Optional rule: a token gives +3 to one check",
+    "TotalArmor": "Armor Class",
+    "TotalTooltip": "Attribute + skill: base d20 pool size",
+    "ProfessionalSkill": "Professional skill: cannot be used untrained. Roll (Shift skips the dialog)",
+    "EffectiveTooltip": "Value including effects",
+    "AllChecks": "All checks",
+    "Abilities": "Special Abilities",
+    "Ability": {
+      "Use": "Use (−1 Will, Chernobog token for the GM)",
+      "ActiveHint": "Active ability: −1 Will, the GM gains a Chernobog token, reusable after a long rest",
+      "AlreadyUsed": "{name} has been used — a long rest is needed",
+      "Used": "Active ability used: −1 Will"
+    },
+    "Rest": {
+      "Long": "Long rest",
+      "Done": "{name}: active abilities restored"
+    },
+    "EncumbranceOver": "Overloaded: −2 to all checks except Strength; Strength check every ~100 m",
+    "EncumbranceImpossible": "More than double the limit — cannot be carried",
+    "ArmorWeightHint": "Dexterity and Stealth modifier: light or no armor +1, heavy −2, bulky −3",
+    "CyberImplants": "Cyber-implants (every second one −1 max Will)",
+    "Size": {
+      "small": "Small (0)",
+      "light": "Light (½)",
+      "standard": "Standard (1)",
+      "heavy": "Heavy (2)",
+      "bulky": "Bulky (4)"
+    },
+    "Implant": {
+      "implant": "Implant",
+      "prosthesis": "Prosthesis",
+      "cyber": "Cyber-implant"
+    },
+    "Range": {
+      "pointBlank": "Point blank (1 m)",
+      "close": "Close (2 m)",
+      "medium": "Medium (20 m)",
+      "long": "Long (100 m)",
+      "extreme": "Extreme (1000 m)"
+    },
+    "ShipRange": {
+      "zero": "Zero (same segment)",
+      "close": "Close (1 segment)",
+      "medium": "Medium (2–3)",
+      "long": "Long (4–5)",
+      "extreme": "Extreme (6–7)"
+    },
+    "Attack": {
+      "Mode": "Action",
+      "normal": "Normal attack",
+      "quick": "Quick attack",
+      "power": "Power strike",
+      "opportunity": "Opportunity attack",
+      "choke": "Choke hold",
+      "shot": "Normal shot",
+      "hip": "Hip shot",
+      "aimed": "Aimed shot",
+      "auto": "Automatic fire",
+      "braced": "Braced behind cover",
+      "shipStandard": "Standard fire",
+      "shipAimed": "Aimed fire",
+      "shipQuick": "Quick fire",
+      "shipBurst": "Long burst",
+      "shipVolley": "Volley",
+      "Hit": "Hit",
+      "Miss": "Miss",
+      "InjuryPossible": "An injury can be inflicted",
+      "ShipCritPossible": "A critical hit can be inflicted",
+      "ExtraHint": "Extra successes: +1 damage, injury (costs crit), intimidation/suppression, disarm, +2 initiative, grapple",
+      "ShipExtraHint": "Extra successes: +1 damage or a critical hit (costs crit)"
+    },
+    "Difficulty": {
+      "elementary": "Elementary",
+      "simple": "Simple",
+      "easy": "Easy",
+      "standard": "Standard",
+      "tricky": "Tricky",
+      "hard": "Hard",
+      "extreme": "Extreme"
+    },
+    "Outcome": {
+      "brilliant": "Brilliant",
+      "success": "Success",
+      "partial": "Success, but…",
+      "failure": "Failure",
+      "fumble": "Fumble"
+    },
+    "Prayer": {
+      "Pray": "Pray: reroll the selected dice",
+      "GmReroll": "Reroll (1 Chernobog token)",
+      "Hint": "Click dice to select them. With nothing selected all non-successes are rerolled. Prayer: 1 Will damage + 1 per rolled 1, the GM gains a Chernobog token.",
+      "Atheist": "An atheist has no one to pray to",
+      "NothingToReroll": "Nothing to reroll",
+      "WillLoss": "Will damage from prayer",
+      "Count": "Prayers offered",
+      "Blessing": "Blessing die"
+    },
+    "Chernobog": {
+      "Tokens": "Chernobog tokens",
+      "NotEnough": "Not enough Chernobog tokens",
+      "Prayer": "{name} prays",
+      "Witchcraft": "{name} uses witchcraft",
+      "Ability": "{name}: active ability {ability}",
+      "Trait": "{name}: positive trait {trait}",
+      "NegativeTrait": "{name}: negative trait {trait}",
+      "Reroll": "Reroll for {name}"
+    },
+    "Damage": {
+      "Title": "Apply damage",
+      "Apply": "Apply",
+      "Targets": "Targets",
+      "Cover": "Cover (cover armor class)",
+      "IgnoreArmor": "Ignore armor",
+      "Hint": "The target rolls dice equal to armor + cover: each success reduces damage by 1, each 1 damages the cover or armor.",
+      "Card": "Damage",
+      "ArmorRoll": "Armor roll",
+      "Reduced": "Absorbed",
+      "Final": "Damage taken",
+      "ArmorDamaged": "Armor damaged",
+      "CoverDamaged": "Cover damaged"
+    },
+    "Resist": {
+      "health": "Health check",
+      "will": "Will check",
+      "StrengthHealth": "Strength vs health",
+      "StrengthWill": "Strength vs will",
+      "Protection": "Protection",
+      "Resistant": "Resistance",
+      "ImmuneLabel": "Immunity",
+      "Immune": "Immune: the effect has no power",
+      "Hint": "Roll d20 equal to the current value; each success reduces the effect strength by 1.",
+      "Success": "Effect resisted",
+      "Remaining": "Remaining effect strength"
+    },
+    "D66": {
+      "injury": "Injury (d66)",
+      "shipCrit": "Critical damage (d66)",
+      "compartment": "Random compartment (d66)",
+      "jump": "Failed jump (d66)"
+    },
+    "Npc": {
+      "Danger": "Danger",
+      "DangerHint": "1 — attacks in packs, 2 — alone, 3 — against a whole group",
+      "Rarity": "Rarity",
+      "RarityHint": "Modifier to Science and Culture checks to identify",
+      "ActionPoints": "Action points",
+      "Defenses": "Defenses (resistances and vulnerabilities)",
+      "DefensesPlaceholder": "Resistant to poison, vulnerable to fire…",
+      "UseFormula": "Health and Will from formula",
+      "Traits": "Traits"
+    },
+    "Energy": {
+      "Title": "Energy distribution",
+      "weapons": "Weapons (Shooting)",
+      "engines": "Engines (Piloting)",
+      "repair": "Repair (Mechanics)",
+      "sensors": "Sensors and targeting (Science, Observation)",
+      "cyber": "Virus attack and countermeasures (Cybershamanism)",
+      "Over": "More energy distributed than the ship has"
+    },
+    "ShipDamage": {
+      "structural": "Structural",
+      "system": "System",
+      "both": "Structural and system"
+    },
+    "Location": {
+      "bow": "Bow",
+      "stern": "Stern",
+      "port": "Port",
+      "starboard": "Starboard",
+      "turret": "Turret"
+    },
+    "Settings": {
+      "ChernobogVisible": {
+        "name": "Players see Chernobog tokens",
+        "hint": "Show the Chernobog token counter to all players."
+      },
+      "AutoTokens": {
+        "name": "Award Chernobog tokens automatically",
+        "hint": "The GM gains a token for every Witchcraft check (prayers, active abilities and traits always award tokens)."
+      },
+      "ProfessionalGate": {
+        "name": "Professional skills require training",
+        "hint": "Forbid checks of a professional skill at 0."
+      },
+      "HeroTokens": {
+        "name": "Hero tokens (optional rule)",
+        "hint": "Players award each other tokens worth +3 to one check."
+      },
+      "Table": {
+        "injury": "Injury table (UUID)",
+        "shipCrit": "Ship critical damage table (UUID)",
+        "compartment": "Random compartment table (UUID)",
+        "jump": "Failed jump table (UUID)",
+        "hint": "UUID of a roll table with ranges 11–66 (e.g. from a compendium module). If empty only the d66 code is posted."
+      }
+    }
+  }
+}

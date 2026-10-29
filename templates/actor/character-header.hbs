@@ -1,0 +1,72 @@
+<header class="sheet-header">
+  <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img" data-tooltip="{{actor.name}}">
+  <div class="header-body">
+    <div class="name-row">
+      <span class="ornament">✠</span>
+      <label class="title-label">{{localize "SPINDLE.Name"}}:</label>
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}" placeholder="{{localize 'SPINDLE.Name'}}">
+    </div>
+
+    <div class="header-grid">
+      <div class="cell">
+        <label>{{localize "SPINDLE.Supercredits"}}</label>
+        <input type="number" name="system.supercredits" value="{{source.supercredits}}">
+      </div>
+      <div class="cell">
+        <label>{{localize "SPINDLE.Reputation"}}</label>
+        <input type="number" name="system.reputation" value="{{source.reputation}}" min="-5" max="5">
+      </div>
+      <div class="cell">
+        <label>{{localize "SPINDLE.Speed"}}</label>
+        <div class="resource-values">
+          <input type="number" name="system.speed" value="{{source.speed}}">
+          {{#if system.encumbrance.bulky}}<span class="warn" data-tooltip="SPINDLE.BulkySpeed">→ {{system.effectiveSpeed}}</span>{{/if}}
+        </div>
+      </div>
+      <div class="cell wide specialization">
+        <label>{{localize "TYPES.Item.specialization"}}</label>
+        {{#if specialization}}
+        <div class="spec-name" data-item-id="{{specialization.id}}">
+          <img src="{{specialization.img}}" alt="">
+          <a data-action="itemEdit">{{specialization.name}}</a>
+          {{#if editable}}<a class="control" data-action="itemDelete" data-tooltip="SPINDLE.Delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+        </div>
+        {{else}}
+        <div class="spec-empty">{{localize "SPINDLE.DropSpecialization"}}</div>
+        {{/if}}
+      </div>
+      <div class="cell">
+        <label>{{localize "SPINDLE.Level"}}</label>
+        <span class="static">{{system.level}}</span>
+      </div>
+      <div class="cell">
+        <label>{{localize "SPINDLE.XP.value"}}</label>
+        <input type="number" name="system.xp" value="{{source.xp}}" min="0">
+      </div>
+      <div class="cell">
+        <label>{{localize "SPINDLE.XP.next"}}</label>
+        <span class="static">{{#if system.nextLevelXp}}{{system.nextLevelXp}}{{else}}—{{/if}}</span>
+      </div>
+      <div class="cell wide">
+        <label>{{localize "SPINDLE.Origin.label"}}</label>
+        <input type="text" name="system.origin" value="{{source.origin}}" placeholder="{{localize 'SPINDLE.Origin.placeholder'}}">
+      </div>
+      <div class="cell wide">
+        <label>{{localize "SPINDLE.Religion"}}</label>
+        <select name="system.religion">{{selectOptions religionOptions selected=source.religion localize=true}}</select>
+      </div>
+      <div class="cell">
+        <label data-tooltip="SPINDLE.BlessingHint">{{localize "SPINDLE.Blessing"}}</label>
+        <input type="number" name="system.blessing" value="{{source.blessing}}" min="0" max="3">
+      </div>
+      {{#if heroTokensEnabled}}
+      <div class="cell">
+        <label data-tooltip="SPINDLE.HeroTokensHint">{{localize "SPINDLE.HeroTokens"}}</label>
+        <input type="number" name="system.heroTokens" value="{{source.heroTokens}}" min="0">
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
+  {{> "systems/star-spindle/templates/actor/parts/condition.hbs"}}
+</header>

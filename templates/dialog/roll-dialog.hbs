@@ -1,0 +1,84 @@
+<div class="spindle-roll-dialog">
+  {{#if item}}<p class="roll-item"><img src="{{item.img}}" alt=""> {{item.name}}</p>{{/if}}
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Attribute.label"}}</label>
+    <select name="attribute">
+      {{#each attributes as |a|}}
+      <option value="{{a.key}}" {{#if a.selected}}selected{{/if}}>{{localize a.label}} ({{a.value}})</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Skill.label"}}</label>
+    <select name="skill">
+      <option value="">{{localize "SPINDLE.None"}}</option>
+      {{#each skills as |s|}}
+      <option value="{{s.key}}" {{#if s.selected}}selected{{/if}}>{{localize s.label}} ({{s.value}})</option>
+      {{/each}}
+    </select>
+  </div>
+
+  {{#if attackModes}}
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Attack.Mode"}}</label>
+    <select name="attackMode">
+      {{#each attackModes as |m|}}
+      <option value="{{m.key}}" {{#if m.selected}}selected{{/if}}>{{localize m.label}} ({{m.signed}})</option>
+      {{/each}}
+    </select>
+  </div>
+  {{/if}}
+  {{#if ranges}}
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Field.range"}}</label>
+    <select name="range">
+      {{#each ranges as |r|}}
+      <option value="{{r.key}}" {{#if r.selected}}selected{{/if}}>{{localize r.label}} ({{r.signed}})</option>
+      {{/each}}
+    </select>
+  </div>
+  <p class="hint">{{localize "SPINDLE.Roll.RangeHint"}}</p>
+  {{/if}}
+  {{#if ranged}}
+  <label class="checkbox"><input type="checkbox" name="engaged"> {{localize "SPINDLE.Roll.Engaged"}} (−3)</label>
+  {{/if}}
+  {{#if ship}}
+  <label class="checkbox"><input type="checkbox" name="locked" checked> {{localize "SPINDLE.Roll.Locked"}}</label>
+  {{/if}}
+
+  {{#if modifiers.length}}
+  <fieldset>
+    <legend>{{localize "SPINDLE.Roll.Bonuses"}}</legend>
+    {{#each modifiers as |m|}}
+    <label class="checkbox"><input type="checkbox" name="mod" checked> {{localize m.label}} ({{m.signed}})</label>
+    {{/each}}
+  </fieldset>
+  {{/if}}
+
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Roll.Difficulty"}}</label>
+    <select name="difficulty">
+      {{#each difficulties as |d|}}
+      <option value="{{d.value}}" {{#if d.selected}}selected{{/if}}>{{localize d.label}} ({{d.signed}})</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Roll.Help"}}</label>
+    <input type="number" name="help" value="0" min="0" max="3">
+  </div>
+  {{#if influence}}
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Roll.TargetReputation"}}</label>
+    <input type="number" name="targetReputation" value="" min="-5" max="5" placeholder="—">
+  </div>
+  {{/if}}
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Roll.Modifier"}}</label>
+    <input type="number" name="modifier" value="0">
+  </div>
+  {{#if heroTokens}}
+  <label class="checkbox"><input type="checkbox" name="hero"> {{localize "SPINDLE.Roll.HeroToken"}} (+3, {{heroTokens}})</label>
+  {{/if}}
+  <p class="hint">{{localize "SPINDLE.Roll.Hint"}}</p>
+</div>

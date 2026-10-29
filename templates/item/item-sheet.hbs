@@ -1,0 +1,53 @@
+<div class="item-body">
+  <header class="sheet-header item-header">
+    <img class="portrait" src="{{item.img}}" alt="{{item.name}}" data-action="editImage" data-edit="img">
+    <div class="header-body">
+      <input class="actor-name" type="text" name="name" value="{{item.name}}" placeholder="{{localize 'SPINDLE.Name'}}">
+      <span class="item-type">{{typeLabel}}</span>
+    </div>
+  </header>
+
+  {{#if formGroups.length}}
+  <section class="item-details">
+    <header class="section-header"><h3>{{localize "SPINDLE.Details"}}</h3></header>
+    <div class="details-grid">
+      {{#each formGroups as |group|}}{{{group}}}{{/each}}
+    </div>
+  </section>
+  {{/if}}
+
+  <section class="item-description">
+    <header class="section-header"><h3>{{localize "SPINDLE.Field.description"}}</h3></header>
+    <div class="html-block tall">
+      {{#if editable}}
+      {{formInput fields.description name="system.description" value=system.description enriched=enrichedDescription toggled=true documentUUID=item.uuid}}
+      {{else}}
+      <div class="html-readonly">{{{enrichedDescription}}}</div>
+      {{/if}}
+    </div>
+  </section>
+
+  <section class="effects">
+    <header class="section-header">
+      <h3>{{localize "SPINDLE.Effect.Plural"}}</h3>
+      {{#if editable}}<a class="create" data-action="effectCreate" data-tooltip="SPINDLE.Create"><i class="fa-solid fa-plus"></i></a>{{/if}}
+    </header>
+    <ol class="item-list simple-list">
+      {{#each effects as |effect|}}
+      <li class="item {{#if effect.disabled}}disabled{{/if}}" data-effect-id="{{effect.id}}">
+        <img class="item-img" src="{{effect.img}}" alt="">
+        <span class="item-name" data-action="effectEdit">{{effect.name}}</span>
+        {{#if @root.editable}}
+        <div class="item-controls">
+          <a data-action="effectToggle" data-tooltip="SPINDLE.Effect.Toggle"><i class="fa-solid {{#if effect.disabled}}fa-toggle-off{{else}}fa-toggle-on{{/if}}"></i></a>
+          <a data-action="effectEdit" data-tooltip="SPINDLE.Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+          <a data-action="effectDelete" data-tooltip="SPINDLE.Delete"><i class="fa-solid fa-trash"></i></a>
+        </div>
+        {{/if}}
+      </li>
+      {{else}}
+      <li class="empty">{{localize "SPINDLE.Effect.ItemHint"}}</li>
+      {{/each}}
+    </ol>
+  </section>
+</div>

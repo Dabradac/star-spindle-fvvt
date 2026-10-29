@@ -1,0 +1,6 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="log">
+  <header class="section-header"><h3>{{localize "SPINDLE.Ship.Logbook"}}</h3></header>
+  <div class="html-block tall">
+    {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.logbook name="system.logbook" value=system.logbook enriched=enriched.logbook}}
+  </div>
+</section>

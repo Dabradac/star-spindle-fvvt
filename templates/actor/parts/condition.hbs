@@ -1,0 +1,37 @@
+<div class="condition">
+  <div class="condition-head">{{localize "SPINDLE.ConditionTitle"}}</div>
+  <div class="resource health condition-{{system.health.condition}}">
+    <div class="resource-label">
+      <span>{{localize "SPINDLE.Health"}}</span>
+      <small>{{#if system.autoMax}}{{localize "SPINDLE.HealthFormula"}}{{/if}}</small>
+    </div>
+    <div class="resource-values">
+      <input type="number" name="system.health.value" value="{{system.health.value}}" max="{{system.health.max}}">
+      <span class="sep">/</span>
+      {{#if system.autoMax}}<span class="max" data-tooltip="SPINDLE.MaxTooltip">{{system.health.max}}</span>
+      {{else}}<input type="number" name="system.health.max" value="{{source.health.max}}" min="0">{{/if}}
+      <a class="control" data-action="rollResist" data-resource="health" data-tooltip="SPINDLE.Resist.health"><i class="fa-solid fa-shield-heart"></i></a>
+    </div>
+    <div class="bar"><span style="width: {{system.health.pct}}%"></span></div>
+    {{#unless (eq system.health.condition "ok")}}<div class="condition-badge">{{localize (concat "SPINDLE.Condition." system.health.condition)}} ({{localize "SPINDLE.Condition.limit"}} {{system.health.limit}})</div>{{/unless}}
+  </div>
+  <div class="resource will condition-{{system.will.condition}}">
+    <div class="resource-label">
+      <span>{{localize "SPINDLE.Will"}}</span>
+      <small>{{#if system.autoMax}}{{localize "SPINDLE.WillFormula"}}{{/if}}</small>
+    </div>
+    <div class="resource-values">
+      <input type="number" name="system.will.value" value="{{system.will.value}}" max="{{system.will.max}}">
+      <span class="sep">/</span>
+      {{#if system.autoMax}}<span class="max" data-tooltip="SPINDLE.MaxTooltip">{{system.will.max}}</span>
+      {{else}}<input type="number" name="system.will.max" value="{{source.will.max}}" min="0">{{/if}}
+      <a class="control" data-action="rollResist" data-resource="will" data-tooltip="SPINDLE.Resist.will"><i class="fa-solid fa-brain"></i></a>
+    </div>
+    <div class="bar"><span style="width: {{system.will.pct}}%"></span></div>
+    {{#unless (eq system.will.condition "ok")}}<div class="condition-badge">{{localize (concat "SPINDLE.ConditionWill." system.will.condition)}} ({{localize "SPINDLE.Condition.limit"}} {{system.will.limit}})</div>{{/unless}}
+  </div>
+  <div class="resource armor-line">
+    <div class="resource-label"><span>{{localize "SPINDLE.TotalArmor"}}</span></div>
+    <div class="resource-values"><span class="max">{{system.armor}}</span></div>
+  </div>
+</div>

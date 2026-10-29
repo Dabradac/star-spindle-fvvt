@@ -1,0 +1,22 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="bio">
+  <div class="two-columns">
+    <section>
+      <header class="section-header"><h3>{{localize "SPINDLE.Appearance"}}</h3></header>
+      <div class="html-block">
+        {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.appearance name="system.appearance" value=system.appearance enriched=enriched.appearance}}
+      </div>
+    </section>
+    <section>
+      <header class="section-header"><h3>{{localize "SPINDLE.Biography"}}</h3></header>
+      <div class="html-block">
+        {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.biography name="system.biography" value=system.biography enriched=enriched.biography}}
+      </div>
+    </section>
+  </div>
+  <section>
+    <header class="section-header"><h3>{{localize "SPINDLE.Notes"}}</h3></header>
+    <div class="html-block tall">
+      {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.notes name="system.notes" value=system.notes enriched=enriched.notes}}
+    </div>
+  </section>
+</section>

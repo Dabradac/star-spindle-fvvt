@@ -1,0 +1,35 @@
+<table class="spindle-table skills-table">
+  <thead>
+    <tr>
+      <th colspan="2">{{localize "SPINDLE.Attributes"}}</th>
+      <th colspan="2">{{localize "SPINDLE.Skills"}}</th>
+      <th data-tooltip="SPINDLE.TotalTooltip">{{localize "SPINDLE.Total"}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each attributeRows as |attr|}}
+    {{#each attr.skills as |skill|}}
+    <tr class="{{#if @first}}attr-start{{/if}}">
+      {{#if @first}}
+      <th class="attribute" rowspan="{{attr.skills.length}}">
+        <a data-action="rollAttribute" data-attribute="{{attr.key}}" data-tooltip="SPINDLE.RollTooltip">{{localize attr.label}}</a>
+      </th>
+      <td class="attribute-value" rowspan="{{attr.skills.length}}">
+        <input type="number" name="system.attributes.{{attr.key}}.value" value="{{attr.value}}" min="0">
+        {{#unless (eq attr.value attr.effective)}}<small class="effective" data-tooltip="SPINDLE.EffectiveTooltip">{{attr.effective}}</small>{{/unless}}
+      </td>
+      {{/if}}
+      <td class="skill-name {{#if skill.professional}}professional{{/if}} {{#if skill.untrained}}untrained{{/if}}">
+        <a data-action="rollSkill" data-skill="{{skill.key}}" data-tooltip="{{#if skill.professional}}SPINDLE.ProfessionalSkill{{else}}SPINDLE.RollTooltip{{/if}}">{{localize skill.label}}</a>
+      </td>
+      <td class="skill-value">
+        <input type="number" name="system.skills.{{skill.key}}.value" value="{{skill.value}}" min="0">
+      </td>
+      <td class="skill-total">
+        <a data-action="rollSkill" data-skill="{{skill.key}}">{{skill.total}}{{#if skill.bonus}}<small>{{numberFormat skill.bonus sign=true}}</small>{{/if}} <i class="fa-solid fa-dice-d20"></i></a>
+      </td>
+    </tr>
+    {{/each}}
+    {{/each}}
+  </tbody>
+</table>

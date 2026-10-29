@@ -1,0 +1,13 @@
+<ol class="item-list simple-list">
+  {{#each items as |item|}}
+  <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+    <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse" data-tooltip="SPINDLE.ToChat">
+    <span class="item-name" data-action="itemEdit">{{item.name}}{{#if item.system.craft}} <small>({{localize "SPINDLE.Field.craft"}} {{item.system.level}})</small>{{/if}}</span>
+    {{#if item.system.modifier}}<span class="item-badge">{{numberFormat item.system.modifier sign=true}}</span>{{/if}}
+    <a class="control" data-action="traitActivate" data-tooltip="{{#if (eq item.system.kind 'positive')}}SPINDLE.Trait.ActivatePositive{{else}}SPINDLE.Trait.ActivateNegative{{/if}}"><i class="fa-solid fa-bolt"></i></a>
+    {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+  </li>
+  {{else}}
+  <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+  {{/each}}
+</ol>

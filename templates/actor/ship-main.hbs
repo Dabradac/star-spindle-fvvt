@@ -1,0 +1,93 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="main">
+  <div class="ship-grid">
+    <table class="spindle-table ship-attributes">
+      <thead>
+        <tr><th>{{localize "SPINDLE.Ship.Attributes"}}</th><th>{{localize "SPINDLE.Current"}}</th><th>{{localize "SPINDLE.Max"}}</th></tr>
+      </thead>
+      <tbody>
+        {{#each shipAttributes as |attr|}}
+        <tr>
+          <th>{{localize attr.label}}</th>
+          <td><input type="number" name="system.attributes.{{attr.key}}.value" value="{{attr.value}}" min="0"></td>
+          <td><input type="number" name="system.attributes.{{attr.key}}.max" value="{{attr.max}}" min="0"></td>
+        </tr>
+        {{/each}}
+        <tr>
+          <th>{{localize "SPINDLE.Ship.Batteries"}}</th>
+          <td colspan="2"><input type="number" name="system.batteries" value="{{source.batteries}}" min="0"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="side-column">
+      {{#if conditionLabel}}<p class="condition-badge ship">{{localize conditionLabel}}</p>{{/if}}
+      <table class="spindle-table energy-table {{#if system.energyOver}}over{{/if}}">
+        <thead><tr><th colspan="2">{{localize "SPINDLE.Energy.Title"}}: {{system.energyAllocated}} / {{system.attributes.energy.value}}</th></tr></thead>
+        <tbody>
+          {{#each energySystems as |e|}}
+          <tr><th>{{localize e.label}}</th><td><input type="number" name="system.energyAllocation.{{e.key}}" value="{{e.value}}" min="0"></td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{#if system.energyOver}}<p class="hint warn">{{localize "SPINDLE.Energy.Over"}}</p>{{/if}}
+      <div class="ship-buttons">
+        <button type="button" data-action="shipInitiative" data-role="captain"><i class="fa-solid fa-crown"></i> {{localize "SPINDLE.Ship.Initiative.captainButton"}}</button>
+        <button type="button" data-action="shipInitiative" data-role="pilot"><i class="fa-solid fa-jet-fighter"></i> {{localize "SPINDLE.Ship.Initiative.pilotButton"}}</button>
+        <button type="button" data-action="rollD66" data-table="shipCrit"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.shipCrit"}}</button>
+        <button type="button" data-action="rollD66" data-table="compartment"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.compartment"}}</button>
+        <button type="button" data-action="rollD66" data-table="jump"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.jump"}}</button>
+      </div>
+    </div>
+    <section class="criticals">
+      <header class="section-header"><h3>{{localize "SPINDLE.Ship.Criticals"}}</h3></header>
+      <div class="html-block">
+        {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.criticals name="system.criticals" value=system.criticals enriched=enriched.criticals}}
+      </div>
+    </section>
+  </div>
+
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Weapons" type="shipWeapon"}}
+    <table class="spindle-table item-table">
+      <thead>
+        <tr>
+          <th class="name">{{localize "SPINDLE.Field.name"}}</th>
+          <th>{{localize "SPINDLE.Field.modifierShort"}}</th>
+          <th>{{localize "SPINDLE.Field.damage"}}</th>
+          <th>{{localize "SPINDLE.Field.critShort"}}</th>
+          <th>{{localize "SPINDLE.Field.range"}}</th>
+          <th>{{localize "SPINDLE.Field.location"}}</th>
+          <th>{{localize "SPINDLE.Field.damageType"}}</th>
+          <th class="wide">{{localize "SPINDLE.Field.properties"}}</th>
+          <th>{{localize "SPINDLE.Field.ammo"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items.shipWeapon as |item|}}
+        <tr class="item draggable" draggable="true" data-item-id="{{item.id}}">
+          <td class="name">
+            <img class="item-img" src="{{item.img}}" alt="" data-action="shipWeaponRoll" data-tooltip="SPINDLE.AttackAction">
+            <a data-action="shipWeaponRoll" data-tooltip="SPINDLE.AttackAction">{{item.name}}</a>
+          </td>
+          <td>{{numberFormat item.system.modifier sign=true}}</td>
+          <td>{{item.system.damage}}</td>
+          <td>{{item.system.crit}}</td>
+          <td>{{localize (lookup @root.rangeLabels item.system.range)}}</td>
+          <td>{{localize (concat "SPINDLE.Location." item.system.location)}}</td>
+          <td>{{localize (concat "SPINDLE.ShipDamage." item.system.damageType)}}{{#if item.system.ignoresArmor}} · {{localize "SPINDLE.Field.ignoresArmor"}}{{/if}}</td>
+          <td class="wide">{{item.system.properties}}</td>
+          <td class="ammo">
+            {{#if item.system.ammo.max}}
+            <input type="number" data-item-field="system.ammo.value" data-dtype="Number" value="{{item.system.ammo.value}}" min="0" {{disabled (not @root.editable)}}>/{{item.system.ammo.max}}
+            {{else}}—{{/if}}
+          </td>
+          <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+        </tr>
+        {{else}}
+        <tr><td class="empty" colspan="10">{{localize "SPINDLE.Empty"}}</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+  {{> "systems/star-spindle/templates/actor/parts/effects.hbs"}}
+</section>

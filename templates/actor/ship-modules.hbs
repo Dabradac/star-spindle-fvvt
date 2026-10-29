@@ -1,0 +1,26 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="modules">
+  <div class="counter-row">
+    <span class="label">{{localize "SPINDLE.Ship.ModulesTotal"}}</span>
+    <span>{{localize "SPINDLE.Current"}}: <strong>{{system.modules.value}}</strong></span>
+    <label>{{localize "SPINDLE.Max"}}: <input type="number" name="system.modulesMax" value="{{source.modulesMax}}" min="0"></label>
+  </div>
+  {{> "systems/star-spindle/templates/actor/parts/module-table.hbs" label="SPINDLE.Module.Category.basePlural" category="base" modules=modules.base}}
+  {{> "systems/star-spindle/templates/actor/parts/module-table.hbs" label="SPINDLE.Module.Category.extraPlural" category="extra" modules=modules.extra}}
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Ship.Upgrades" type="shipUpgrade"}}
+    <table class="spindle-table item-table">
+      <thead><tr><th class="name">{{localize "SPINDLE.Ship.Upgrade"}}</th><th class="wide">{{localize "SPINDLE.Field.description"}}</th><th></th></tr></thead>
+      <tbody>
+        {{#each items.shipUpgrade as |item|}}
+        <tr class="item draggable" draggable="true" data-item-id="{{item.id}}">
+          <td class="name"><img class="item-img" src="{{item.img}}" alt="" data-action="itemUse"><a data-action="itemEdit">{{item.name}}</a></td>
+          <td class="wide description-cell">{{{item.system.description}}}</td>
+          <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+        </tr>
+        {{else}}
+        <tr><td class="empty" colspan="3">{{localize "SPINDLE.Empty"}}</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+</section>

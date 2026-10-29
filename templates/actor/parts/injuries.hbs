@@ -1,0 +1,22 @@
+<section>
+  <header class="section-header">
+    <h3>{{localize "SPINDLE.Injuries"}}</h3>
+    <a class="create left" data-action="rollD66" data-table="injury" data-tooltip="SPINDLE.D66.injury"><i class="fa-solid fa-dice"></i></a>
+    {{#if @root.editable}}<a class="create" data-action="itemCreate" data-type="injury" data-tooltip="SPINDLE.Create"><i class="fa-solid fa-plus"></i></a>{{/if}}
+  </header>
+  <ol class="item-list simple-list">
+    {{#each items.injury as |item|}}
+    <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+      <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse">
+      <span class="item-name" data-action="itemEdit">{{#if item.system.code}}<small>{{item.system.code}}</small> {{/if}}{{item.name}}{{#if item.system.lethal}} <i class="fa-solid fa-skull-crossbones" data-tooltip="SPINDLE.Field.lethal"></i>{{/if}}</span>
+      <span class="item-note">{{item.system.effect}}</span>
+      {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+    </li>
+    {{else}}
+    <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+    {{/each}}
+  </ol>
+  <div class="html-block small">
+    {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.injuries name="system.injuries" value=system.injuries enriched=enriched.injuries}}
+  </div>
+</section>

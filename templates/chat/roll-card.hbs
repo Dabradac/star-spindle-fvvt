@@ -1,0 +1,67 @@
+<div class="star-spindle roll-card outcome-{{outcome}}">
+  <header class="roll-header">
+    {{#if item}}<img src="{{item.img}}" alt="">{{/if}}
+    <h3>{{state.title}}</h3>
+    {{#if state.prayers}}<span class="pushed-tag" data-tooltip="SPINDLE.Prayer.Count">🙏 {{state.prayers}}</span>{{/if}}
+  </header>
+  <details class="pool-summary">
+    <summary>{{localize "SPINDLE.Roll.Pool"}}: <strong>{{state.pool}}</strong> {{localize "SPINDLE.Roll.DiceShort"}}</summary>
+    <ul>
+      {{#each parts as |p|}}<li><span>{{localize p.label}}</span><span>{{p.signed}}</span></li>{{/each}}
+    </ul>
+  </details>
+  {{#if modeHint}}<p class="mode-hint">{{localize modeHint}}</p>{{/if}}
+  <div class="dice-row">
+    {{#each dice as |d|}}
+    <span class="die {{d.cls}} {{#if d.rerolled}}rerolled{{/if}}" data-index="{{d.index}}">{{d.value}}</span>
+    {{/each}}
+    {{#each bonusDice as |d|}}
+    <span class="die bonus {{d.cls}}" data-tooltip="SPINDLE.Prayer.Blessing">{{d.value}}</span>
+    {{/each}}
+  </div>
+  <div class="roll-result">
+    <span class="successes">{{signedSuccesses}}</span>
+    <span class="outcome">{{localize outcomeLabel}}</span>
+  </div>
+  {{#if state.willLoss}}<p class="will-loss"><i class="fa-solid fa-brain"></i> {{localize "SPINDLE.Prayer.WillLoss"}}: −{{state.willLoss}}</p>{{/if}}
+
+  {{#if resist}}
+  <div class="attack-result">
+    {{#if resist.resisted}}
+    <strong>{{localize "SPINDLE.Resist.Success"}}</strong>
+    {{else}}
+    {{localize "SPINDLE.Resist.Remaining"}}: <strong>{{resist.remaining}}</strong> / {{resist.strength}}
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{#if attack}}
+  <div class="attack-result">
+    {{#if attack.hit}}
+    <div>{{localize "SPINDLE.Attack.Hit"}}. {{localize "SPINDLE.Field.damage"}}: <strong>{{attack.damage}}</strong>{{#if attack.extra}}, {{localize "SPINDLE.Roll.ExtraSuccesses"}}: <strong>{{attack.extra}}</strong>{{/if}}</div>
+    {{#if attack.injuries}}<div class="crit">{{#if attack.ship}}{{localize "SPINDLE.Attack.ShipCritPossible"}}{{else}}{{localize "SPINDLE.Attack.InjuryPossible"}}{{/if}} ×{{attack.injuries}} ({{localize "SPINDLE.Field.crit"}} {{attack.crit}})</div>{{/if}}
+    <p class="hint">{{#if attack.ship}}{{localize "SPINDLE.Attack.ShipExtraHint"}}{{else}}{{localize "SPINDLE.Attack.ExtraHint"}}{{/if}}</p>
+    <div class="damage-buttons">
+      <button type="button" data-action="spindle-damage" data-damage="{{attack.damage}}" data-pierce="{{attack.pierce}}" data-ignore-armor="{{attack.ignoresArmor}}" {{#if attack.damageType}}data-damage-type="{{attack.damageType}}"{{/if}}><i class="fa-solid fa-burst"></i> {{attack.damage}}</button>
+      {{#if attack.extra}}<button type="button" data-action="spindle-damage" data-damage="{{attack.total}}" data-pierce="{{attack.pierce}}" data-ignore-armor="{{attack.ignoresArmor}}" {{#if attack.damageType}}data-damage-type="{{attack.damageType}}"{{/if}}><i class="fa-solid fa-burst"></i> {{attack.total}}</button>{{/if}}
+      {{#if attack.injuries}}
+      {{#if attack.ship}}
+      <button type="button" data-action="spindle-d66" data-table="shipCrit"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.shipCrit"}}</button>
+      {{else}}
+      <button type="button" data-action="spindle-d66" data-table="injury"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.injury"}}</button>
+      {{/if}}
+      {{/if}}
+    </div>
+    {{else}}
+    <div>{{localize "SPINDLE.Attack.Miss"}}</div>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{#if canPray}}
+  <button type="button" class="push-button" data-action="spindle-pray">
+    <i class="fa-solid fa-hands-praying"></i> {{localize prayLabel}}
+  </button>
+  <p class="hint pray-hint">{{localize "SPINDLE.Prayer.Hint"}}</p>
+  {{/if}}
+</div>

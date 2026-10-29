@@ -1,0 +1,16 @@
+<div class="star-spindle roll-card damage-card">
+  <header class="roll-header"><h3>{{localize "SPINDLE.Damage.Card"}}: {{name}}</h3></header>
+  <div>{{localize "SPINDLE.Field.damage"}}: <strong>{{amount}}</strong>{{#if damageType}} ({{localize damageType}}){{/if}}{{#unless (eq amount damage)}} → {{damage}}{{/unless}}</div>
+  {{#if armorDice}}
+  <div class="pool-line">{{localize "SPINDLE.Damage.ArmorRoll"}}: {{armorDice}} {{localize "SPINDLE.Roll.DiceShort"}}</div>
+  <div class="dice-row">{{#each dice as |d|}}<span class="die {{d.cls}}">{{d.value}}</span>{{/each}}</div>
+  <div>{{localize "SPINDLE.Damage.Reduced"}}: <strong>{{reduced}}</strong></div>
+  {{/if}}
+  <div class="roll-result {{#if final}}failure{{else}}success{{/if}}">
+    <span class="outcome">{{localize "SPINDLE.Damage.Final"}}: <strong>{{final}}</strong></span>
+  </div>
+  {{#if fumbles}}{{#unless isShip}}
+  <p class="crit">{{#if coverDamaged}}{{localize "SPINDLE.Damage.CoverDamaged"}}{{else}}{{#if armorDamaged}}{{localize "SPINDLE.Damage.ArmorDamaged"}}: {{armorDamaged}} −{{fumbles}}{{/if}}{{/if}}</p>
+  {{/unless}}{{/if}}
+  {{#if condition}}{{#unless (eq condition "ok")}}<p class="crit">{{localize (concat "SPINDLE.Condition." condition)}}</p>{{/unless}}{{/if}}
+</div>

@@ -1,0 +1,15 @@
+<section>
+  {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Abilities" type="ability"}}
+  <ol class="item-list simple-list">
+    {{#each abilities as |a|}}
+    <li class="item draggable {{#if a.item.system.used}}disabled{{/if}}" draggable="true" data-item-id="{{a.item.id}}">
+      <img class="item-img" src="{{a.item.img}}" alt="" data-action="itemUse" data-tooltip="{{#if a.item.system.active}}SPINDLE.Ability.Use{{else}}SPINDLE.ToChat{{/if}}">
+      <span class="item-name" data-action="itemEdit">{{a.item.name}}{{#if a.item.system.active}} <span class="active-mark" data-tooltip="SPINDLE.Ability.ActiveHint">*</span>{{/if}}</span>
+      <span class="item-note">{{localize a.skillLabel}} {{a.item.system.tier}}</span>
+      {{#with a.item}}{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}{{/with}}
+    </li>
+    {{else}}
+    <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+    {{/each}}
+  </ol>
+</section>

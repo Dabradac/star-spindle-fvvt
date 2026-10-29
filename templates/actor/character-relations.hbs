@@ -1,0 +1,50 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="relations">
+  <section class="cabin">
+    <header class="section-header"><h3>{{localize "SPINDLE.Cabin.title"}}</h3></header>
+    <div class="two-columns">
+      <div>
+        <h4>{{localize "SPINDLE.Cabin.description"}}</h4>
+        <div class="html-block">
+          {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.cabin.fields.description name="system.cabin.description" value=system.cabin.description enriched=enriched.cabin.description}}
+        </div>
+      </div>
+      <div>
+        <h4>{{localize "SPINDLE.Cabin.storage"}}</h4>
+        <ol class="item-list simple-list">
+          {{#each stored as |item|}}
+          <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+            <img class="item-img" src="{{item.img}}" alt="">
+            <span class="item-name" data-action="itemEdit">{{item.name}}</span>
+            {{#if (gt item.system.quantity 1)}}<span class="item-badge">×{{item.system.quantity}}</span>{{/if}}
+            {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+          </li>
+          {{else}}
+          <li class="empty">{{localize "SPINDLE.Cabin.storageHint"}}</li>
+          {{/each}}
+        </ol>
+        <div class="html-block small">
+          {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.cabin.fields.storage name="system.cabin.storage" value=system.cabin.storage enriched=enriched.cabin.storage}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="two-columns relations">
+    <table class="spindle-table relation-table">
+      <thead><tr><th colspan="2">{{localize "SPINDLE.FactionRelations"}}</th></tr></thead>
+      <tbody>
+        {{#each factions as |f|}}
+        <tr><th>{{localize f.label}}</th><td><input type="number" name="system.factions.{{f.key}}" value="{{f.value}}"></td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <table class="spindle-table relation-table">
+      <thead><tr><th colspan="2">{{localize "SPINDLE.ClanRelations"}}</th></tr></thead>
+      <tbody>
+        {{#each clans as |c|}}
+        <tr><th>{{localize c.label}}</th><td><input type="number" name="system.clans.{{c.key}}" value="{{c.value}}"></td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</section>

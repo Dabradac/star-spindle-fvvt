@@ -1,0 +1,6 @@
+<header class="section-header">
+  <h3>{{localize label}}</h3>
+  {{#if @root.editable}}{{#if type}}
+  <a class="create" data-action="itemCreate" data-type="{{type}}" {{#if kind}}data-system-kind="{{kind}}"{{/if}} {{#if category}}data-system-category="{{category}}"{{/if}} {{#if size}}data-system-size="{{size}}"{{/if}} data-tooltip="SPINDLE.Create"><i class="fa-solid fa-plus"></i></a>
+  {{/if}}{{/if}}
+</header>

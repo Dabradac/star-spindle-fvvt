@@ -1,0 +1,92 @@
+<div class="npc-body">
+  <header class="sheet-header npc-header">
+    <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+    <div class="header-body">
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}" placeholder="{{localize 'SPINDLE.Name'}}">
+      <div class="header-grid">
+        <div class="cell wide">
+          <label>{{localize "SPINDLE.Role"}}</label>
+          <input type="text" name="system.role" value="{{source.role}}">
+        </div>
+        <div class="cell">
+          <label data-tooltip="SPINDLE.Npc.DangerHint">{{localize "SPINDLE.Npc.Danger"}}</label>
+          <input type="number" name="system.danger" value="{{source.danger}}" min="0" max="3">
+        </div>
+        <div class="cell">
+          <label data-tooltip="SPINDLE.Npc.RarityHint">{{localize "SPINDLE.Npc.Rarity"}}</label>
+          <input type="number" name="system.rarity" value="{{source.rarity}}">
+        </div>
+        <div class="cell">
+          <label>{{localize "SPINDLE.Npc.ActionPoints"}}</label>
+          <input type="number" name="system.actionPoints" value="{{source.actionPoints}}" min="0">
+        </div>
+        <div class="cell">
+          <label>{{localize "SPINDLE.Speed"}}</label>
+          <input type="number" name="system.speed" value="{{source.speed}}">
+        </div>
+        <div class="cell wide">
+          <label>{{localize "SPINDLE.Npc.Defenses"}}</label>
+          <input type="text" name="system.defenses" value="{{source.defenses}}" placeholder="{{localize 'SPINDLE.Npc.DefensesPlaceholder'}}">
+        </div>
+        <div class="cell wide">
+          <label>{{localize "SPINDLE.Npc.UseFormula"}}</label>
+          <input type="checkbox" name="system.useFormula" {{checked source.useFormula}}>
+        </div>
+      </div>
+    </div>
+    {{> "systems/star-spindle/templates/actor/parts/condition.hbs"}}
+  </header>
+
+  <div class="npc-attributes">
+    {{#each attributeRows as |attr|}}
+    <div class="npc-attribute">
+      <div class="attr-head">
+        <a data-action="rollAttribute" data-attribute="{{attr.key}}">{{localize attr.label}}</a>
+        <input type="number" name="system.attributes.{{attr.key}}.value" value="{{attr.value}}" min="0">
+      </div>
+      <ul>
+        {{#each attr.skills as |skill|}}
+        <li class="{{#if skill.professional}}professional{{/if}}">
+          <a data-action="rollSkill" data-skill="{{skill.key}}">{{localize skill.label}} <small>({{skill.total}})</small></a>
+          <input type="number" name="system.skills.{{skill.key}}.value" value="{{skill.value}}" min="0">
+        </li>
+        {{/each}}
+      </ul>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="two-columns">
+    <section>
+      {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Weapons" type="weapon"}}
+      <ol class="item-list simple-list">
+        {{#each items.weapon as |item|}}
+        <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+          <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse" data-tooltip="SPINDLE.AttackAction">
+          <a class="item-name" data-action="itemUse">{{item.name}}</a>
+          <span class="item-note">{{localize "SPINDLE.Field.modifierShort"}} {{numberFormat item.system.modifier sign=true}} · {{localize "SPINDLE.Field.damage"}} {{item.system.damage}} · {{localize "SPINDLE.Field.critShort"}} {{item.system.crit}}</span>
+          {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+        </li>
+        {{else}}<li class="empty">{{localize "SPINDLE.Empty"}}</li>{{/each}}
+      </ol>
+      {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.ArmorPlural" type="armor"}}
+      {{> "systems/star-spindle/templates/actor/parts/simple-list.hbs" items=items.armor}}
+      {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Equipment" type="gear"}}
+      {{> "systems/star-spindle/templates/actor/parts/simple-list.hbs" items=items.gear}}
+    </section>
+    <section>
+      {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Npc.Traits" type="trait"}}
+      {{> "systems/star-spindle/templates/actor/parts/trait-list.hbs" items=items.trait}}
+      {{> "systems/star-spindle/templates/actor/parts/abilities.hbs"}}
+      {{> "systems/star-spindle/templates/actor/parts/injuries.hbs"}}
+    </section>
+  </div>
+
+  <section>
+    <header class="section-header"><h3>{{localize "SPINDLE.Description"}}</h3></header>
+    <div class="html-block">
+      {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.biography name="system.biography" value=system.biography enriched=enriched.biography}}
+    </div>
+  </section>
+  {{> "systems/star-spindle/templates/actor/parts/effects.hbs"}}
+</div>

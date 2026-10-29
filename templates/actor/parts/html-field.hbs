@@ -1,0 +1,5 @@
+{{#if @root.editable}}
+{{formInput field name=name value=value enriched=enriched toggled=true documentUUID=@root.actor.uuid}}
+{{else}}
+<div class="html-readonly">{{{enriched}}}</div>
+{{/if}}

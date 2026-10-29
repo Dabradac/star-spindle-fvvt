@@ -1,0 +1,25 @@
+<header class="sheet-header ship-header">
+  <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+  <div class="header-body">
+    <div class="name-row">
+      <span class="ornament">✠</span>
+      <label class="title-label">{{localize "SPINDLE.Ship.Name"}}:</label>
+      <input class="actor-name" type="text" name="name" value="{{actor.name}}">
+    </div>
+    <div class="header-grid">
+      <div class="cell"><label>{{localize "SPINDLE.Ship.Class"}}</label><select name="system.shipClass" data-dtype="Number">{{selectOptions classOptions selected=source.shipClass}}</select></div>
+      <div class="cell"><label data-tooltip="SPINDLE.Ship.SizeHint">{{localize "SPINDLE.Ship.Size"}}</label><input type="number" name="system.size" value="{{source.size}}" min="0"></div>
+      <div class="cell"><label>{{localize "SPINDLE.Ship.Hull"}}</label><input type="text" name="system.hull" value="{{source.hull}}"></div>
+      <div class="cell"><label>{{localize "SPINDLE.Ship.BaseCost"}}</label><input type="number" name="system.baseCost" value="{{source.baseCost}}"></div>
+      <div class="cell"><label>{{localize "SPINDLE.Ship.LastMaintenance"}}</label><input type="text" name="system.lastMaintenance" value="{{source.lastMaintenance}}"></div>
+      <div class="cell wide"><label>{{localize "SPINDLE.Ship.HullBonuses"}}</label><textarea name="system.hullBonuses" rows="2">{{source.hullBonuses}}</textarea></div>
+      <div class="cell wide"><label>{{localize "SPINDLE.Ship.Flaw"}}</label><textarea name="system.flaw" rows="2">{{source.flaw}}</textarea></div>
+    </div>
+  </div>
+  <div class="condition debt">
+    <div class="condition-head">{{localize "SPINDLE.Ship.Debt"}}</div>
+    <label>{{localize "SPINDLE.Ship.DebtInitial"}}<input type="number" name="system.debt.initial" value="{{source.debt.initial}}"></label>
+    <label>{{localize "SPINDLE.Ship.DebtRemaining"}}<input type="number" name="system.debt.remaining" value="{{source.debt.remaining}}"></label>
+    <label>{{localize "SPINDLE.Ship.DebtMonthly"}}<input type="number" name="system.debt.monthly" value="{{source.debt.monthly}}"></label>
+  </div>
+</header>

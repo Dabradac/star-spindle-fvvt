@@ -1,0 +1,176 @@
+<section class="tab {{tab.cssClass}}" data-group="primary" data-tab="gear">
+  <div class="gear-top">
+    <div class="encumbrance {{#if system.encumbrance.over}}over{{/if}}">
+      <div class="label-block">
+        <span class="label">{{localize "SPINDLE.Encumbrance"}}</span>
+        <small>{{localize "SPINDLE.EncumbranceFormula"}}</small>
+      </div>
+      <div class="bar"><span style="width: {{system.encumbrance.pct}}%"></span></div>
+      <div class="values">
+        <span>{{system.encumbrance.value}}</span> / <span>{{system.encumbrance.max}}</span>
+        <input type="number" name="system.encumbranceBonus" value="{{source.encumbranceBonus}}" data-tooltip="SPINDLE.EncumbranceBonus">
+      </div>
+    </div>
+    <div class="encumbrance-notes">
+      {{#if system.encumbrance.impossible}}<span class="warn">{{localize "SPINDLE.EncumbranceImpossible"}}</span>
+      {{else if system.encumbrance.over}}<span class="warn">{{localize "SPINDLE.EncumbranceOver"}}</span>{{/if}}
+      {{#if system.encumbrance.agilityMod}}<span data-tooltip="SPINDLE.ArmorWeightHint">{{localize "SPINDLE.Roll.ArmorWeight"}}: {{numberFormat system.encumbrance.agilityMod sign=true}}</span>{{/if}}
+      {{#if system.cyberImplants}}<span>{{localize "SPINDLE.CyberImplants"}}: {{system.cyberImplants}}</span>{{/if}}
+    </div>
+    <div class="resources">
+      <span class="label">{{localize "SPINDLE.CraftResources"}}</span>
+      {{#each resources as |res|}}
+      <label class="tier">
+        <span>{{res.label}}</span>
+        <input type="number" name="system.resources.{{res.key}}" value="{{res.value}}" min="0">
+      </label>
+      {{/each}}
+    </div>
+  </div>
+
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Weapons" type="weapon"}}
+    <table class="spindle-table item-table">
+      <thead>
+        <tr>
+          <th class="name">{{localize "SPINDLE.Field.name"}}</th>
+          <th>{{localize "SPINDLE.Field.modifierShort"}}</th>
+          <th>{{localize "SPINDLE.Field.initiativeShort"}}</th>
+          <th>{{localize "SPINDLE.Field.damage"}}</th>
+          <th>{{localize "SPINDLE.Field.critShort"}}</th>
+          <th>{{localize "SPINDLE.Field.range"}}</th>
+          <th class="wide">{{localize "SPINDLE.Field.properties"}}</th>
+          <th>{{localize "SPINDLE.Field.ammo"}}</th>
+          <th>{{localize "SPINDLE.Field.slots"}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each items.weapon as |item|}}
+        <tr class="item draggable {{#if item.system.stored}}stored{{/if}}" draggable="true" data-item-id="{{item.id}}">
+          <td class="name">
+            <a class="equip {{#if item.system.equipped}}active{{/if}}" data-action="itemToggle" data-field="system.equipped" data-tooltip="SPINDLE.Field.equipped"><i class="fa-solid fa-hand-fist"></i></a>
+            <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse" data-tooltip="SPINDLE.AttackAction">
+            <a data-action="itemUse" data-tooltip="SPINDLE.AttackAction">{{item.name}}</a>
+          </td>
+          <td>{{numberFormat item.system.modifier sign=true}}</td>
+          <td>{{numberFormat item.system.initiative sign=true}}</td>
+          <td>{{item.system.damage}}</td>
+          <td>{{item.system.crit}}</td>
+          <td>{{localize (lookup @root.rangeLabels item.system.range)}}</td>
+          <td class="wide">{{item.system.properties}}{{#if item.system.armorPiercing}} · {{localize "SPINDLE.Field.armorPiercing"}} {{item.system.armorPiercing}}{{/if}}{{#if item.system.quality}} · {{localize "SPINDLE.Field.quality"}} {{numberFormat item.system.quality sign=true}}{{/if}}</td>
+          <td class="ammo">
+            {{#if item.system.ammo.max}}
+            <input type="number" data-item-field="system.ammo.value" data-dtype="Number" value="{{item.system.ammo.value}}" min="0" {{disabled (not @root.editable)}}>/{{item.system.ammo.max}}
+            {{else}}—{{/if}}
+          </td>
+          <td data-tooltip="{{localize (lookup @root.sizeLabels item.system.size)}}">{{item.system.slots}}</td>
+          <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+        </tr>
+        {{else}}
+        <tr><td class="empty" colspan="10">{{localize "SPINDLE.Empty"}}</td></tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </section>
+
+  <div class="two-columns">
+    <section>
+      {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Equipment" type="gear"}}
+      <table class="spindle-table item-table">
+        <thead>
+          <tr>
+            <th class="name">{{localize "SPINDLE.Field.name"}}</th>
+            <th>{{localize "SPINDLE.Field.modifier"}}</th>
+            <th>{{localize "SPINDLE.Field.quantityShort"}}</th>
+            <th>{{localize "SPINDLE.Field.slots"}}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each gear.large as |item|}}
+          <tr class="item draggable" draggable="true" data-item-id="{{item.id}}">
+            <td class="name">
+              <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse">
+              <a data-action="itemEdit">{{item.name}}</a>
+            </td>
+            <td>{{#if item.system.modifier}}{{numberFormat item.system.modifier sign=true}}{{/if}}{{#if item.system.quality}} <small>({{numberFormat item.system.quality sign=true}})</small>{{/if}}</td>
+            <td><input type="number" data-item-field="system.quantity" data-dtype="Number" value="{{item.system.quantity}}" min="0" {{disabled (not @root.editable)}}></td>
+            <td data-tooltip="{{localize (lookup @root.sizeLabels item.system.size)}}">{{item.system.slots}}</td>
+            <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+          </tr>
+          {{else}}
+          <tr><td class="empty" colspan="5">{{localize "SPINDLE.Empty"}}</td></tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </section>
+
+    <div class="side-column">
+      <section>
+        {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.SmallItems" type="gear" size="small"}}
+        <ol class="item-list simple-list">
+          {{#each gear.small as |item|}}
+          <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+            <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse">
+            <span class="item-name" data-action="itemEdit">{{item.name}}</span>
+            {{#if (gt item.system.quantity 1)}}<span class="item-badge">×{{item.system.quantity}}</span>{{/if}}
+            {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+          </li>
+          {{else}}
+          <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+          {{/each}}
+        </ol>
+      </section>
+
+      <section>
+        {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.ArmorPlural" type="armor"}}
+        <table class="spindle-table item-table">
+          <thead>
+            <tr>
+              <th class="name">{{localize "SPINDLE.Field.name"}}</th>
+              <th>{{localize "SPINDLE.Field.defenseShort"}}</th>
+              <th>{{localize "SPINDLE.Field.size"}}</th>
+              <th class="wide">{{localize "SPINDLE.Field.properties"}}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each items.armor as |item|}}
+            <tr class="item draggable" draggable="true" data-item-id="{{item.id}}">
+              <td class="name">
+                <a class="equip {{#if item.system.equipped}}active{{/if}}" data-action="itemToggle" data-field="system.equipped" data-tooltip="SPINDLE.Field.equipped"><i class="fa-solid fa-shield-halved"></i></a>
+                <a data-action="itemEdit">{{item.name}}</a>
+              </td>
+              <td>{{item.system.defense}}{{#if item.system.quality}} <small>({{numberFormat item.system.quality sign=true}})</small>{{/if}}</td>
+              <td>{{localize (lookup @root.sizeLabels item.system.size)}}</td>
+              <td class="wide">{{item.system.properties}}</td>
+              <td>{{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}</td>
+            </tr>
+            {{else}}
+            <tr><td class="empty" colspan="5">{{localize "SPINDLE.Empty"}}</td></tr>
+            {{/each}}
+          </tbody>
+          <tfoot><tr><td>{{localize "SPINDLE.TotalArmor"}}</td><td>{{system.armor}}</td><td colspan="3"></td></tr></tfoot>
+        </table>
+      </section>
+
+      <section>
+        {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Implants" type="implant"}}
+        <ol class="item-list simple-list">
+          {{#each items.implant as |item|}}
+          <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+            <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse">
+            <span class="item-name" data-action="itemEdit">{{item.name}}</span>
+            <span class="item-note">{{localize (concat "SPINDLE.Implant." item.system.kind)}}{{#if item.system.illegal}} · {{localize "SPINDLE.Field.illegal"}}{{/if}}</span>
+            {{#if item.system.modifier}}<span class="item-badge">{{numberFormat item.system.modifier sign=true}}</span>{{/if}}
+            {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+          </li>
+          {{else}}
+          <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+          {{/each}}
+        </ol>
+      </section>
+    </div>
+  </div>
+</section>

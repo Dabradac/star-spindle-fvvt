@@ -1,0 +1,133 @@
+{
+  "id": "star-spindle",
+  "title": "Звёздное Веретено (Star Spindle)",
+  "description": "Система для настольной ролевой игры «Звёздное Веретено»: листы персонажа, НИП и корабля, проверки пулом к20 с молитвами и жетонами Чернобога, броня, травмы к66, особые способности, черты, специализации, снаряжение в ячейках, модули и экипаж корабля.",
+  "version": "0.2.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "13"
+  },
+  "authors": [
+    {
+      "name": "dabradac"
+    }
+  ],
+  "esmodules": [
+    "module/star-spindle.mjs"
+  ],
+  "styles": [
+    "styles/star-spindle.css"
+  ],
+  "languages": [
+    {
+      "lang": "ru",
+      "name": "Русский",
+      "path": "lang/ru.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "documentTypes": {
+    "Actor": {
+      "character": {
+        "htmlFields": [
+          "biography",
+          "injuries",
+          "appearance",
+          "notes",
+          "cabin.description",
+          "cabin.storage"
+        ]
+      },
+      "npc": {
+        "htmlFields": [
+          "biography",
+          "injuries",
+          "notes"
+        ]
+      },
+      "ship": {
+        "htmlFields": [
+          "criticals",
+          "logbook"
+        ]
+      }
+    },
+    "Item": {
+      "weapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "armor": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "gear": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "implant": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "ability": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "trait": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "specialization": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "injury": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "shipWeapon": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "shipModule": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "shipUpgrade": {
+        "htmlFields": [
+          "description"
+        ]
+      },
+      "cargo": {
+        "htmlFields": [
+          "description"
+        ]
+      }
+    }
+  },
+  "grid": {
+    "type": 1,
+    "distance": 1,
+    "units": "м"
+  },
+  "primaryTokenAttribute": "health",
+  "secondaryTokenAttribute": "will",
+  "socket": true,
+  "url": "https://github.com/dabradac/star-spindle_fvvt",
+  "manifest": "https://github.com/dabradac/star-spindle_fvvt/releases/latest/download/system.json",
+  "download": "https://github.com/dabradac/star-spindle_fvvt/releases/latest/download/star-spindle.zip"
+}

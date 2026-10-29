@@ -1,0 +1,19 @@
+<div class="spindle-roll-dialog">
+  <div class="form-group">
+    <label>{{#if (eq resource "health")}}{{localize "SPINDLE.Resist.StrengthHealth"}}{{else}}{{localize "SPINDLE.Resist.StrengthWill"}}{{/if}}</label>
+    <input type="number" name="strength" value="1" min="0">
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Resist.Protection"}}</label>
+    <select name="resistance">
+      <option value="none">{{localize "SPINDLE.None"}}</option>
+      <option value="resistant">{{localize "SPINDLE.Resist.Resistant"}} (+3)</option>
+      <option value="immune">{{localize "SPINDLE.Resist.ImmuneLabel"}}</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Roll.Modifier"}}</label>
+    <input type="number" name="modifier" value="0">
+  </div>
+  <p class="hint">{{localize "SPINDLE.Resist.Hint"}}</p>
+</div>

@@ -1,0 +1,17 @@
+<div class="spindle-roll-dialog">
+  <p class="hint">{{localize "SPINDLE.Damage.Targets"}}: <strong>{{targets}}</strong></p>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Field.damage"}}</label>
+    <input type="number" name="amount" value="{{amount}}" min="0">
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Damage.Cover"}}</label>
+    <input type="number" name="cover" value="0" min="0">
+  </div>
+  <div class="form-group">
+    <label>{{localize "SPINDLE.Field.armorPiercing"}}</label>
+    <input type="number" name="pierce" value="{{pierce}}" min="0">
+  </div>
+  <label class="checkbox"><input type="checkbox" name="ignoreArmor" {{#if ignoreArmor}}checked{{/if}}> {{localize "SPINDLE.Damage.IgnoreArmor"}}</label>
+  <p class="hint">{{localize "SPINDLE.Damage.Hint"}}</p>
+</div>
