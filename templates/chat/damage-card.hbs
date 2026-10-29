@@ -12,5 +12,7 @@
   {{#if fumbles}}{{#unless isShip}}
   <p class="crit">{{#if coverDamaged}}{{localize "SPINDLE.Damage.CoverDamaged"}}{{else}}{{#if armorDamaged}}{{localize "SPINDLE.Damage.ArmorDamaged"}}: {{armorDamaged}} −{{fumbles}}{{/if}}{{/if}}</p>
   {{/unless}}{{/if}}
+  {{#if passengersDamage}}<p>{{localize "SPINDLE.Vehicle.PassengersDamage"}}: <strong>{{passengersDamage}}</strong></p>{{/if}}
+  {{#if vehicleCondition}}<p class="crit">{{localize vehicleCondition}}</p>{{/if}}
   {{#if condition}}{{#unless (eq condition "ok")}}<p class="crit">{{localize (concat "SPINDLE.Condition." condition)}}</p>{{/unless}}{{/if}}
 </div>

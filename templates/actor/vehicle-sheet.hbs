@@ -1,0 +1,93 @@
+<section class="vehicle-body">
+  <header class="sheet-header vehicle-header">
+    <img class="portrait" src="{{actor.img}}" alt="{{actor.name}}" data-action="editImage" data-edit="img">
+    <div class="header-body">
+      <div class="name-row">
+        <label class="title-label">{{localize "SPINDLE.Vehicle.Name"}}:</label>
+        <input class="actor-name" type="text" name="name" value="{{actor.name}}">
+      </div>
+      <div class="header-grid">
+        <div class="cell wide"><label>{{localize "SPINDLE.Vehicle.Kind"}}</label><input type="text" name="system.kind" value="{{source.kind}}"></div>
+        <div class="cell"><label>{{localize "SPINDLE.Vehicle.Seats"}}</label><input type="text" name="system.seats" value="{{source.seats}}"></div>
+        <div class="cell"><label>{{localize "SPINDLE.Vehicle.Price"}}</label><input type="number" name="system.price" value="{{source.price}}" min="0"></div>
+      </div>
+    </div>
+    <div class="condition">
+      <div class="condition-head">{{localize "SPINDLE.ConditionTitle"}}</div>
+      <div class="resource health condition-{{system.condition}}">
+        <div class="resource-label"><span>{{localize "SPINDLE.Vehicle.Durability"}}</span></div>
+        <div class="resource-values">
+          <input type="number" name="system.durability.value" value="{{source.durability.value}}">
+          <span class="sep">/</span>
+          <input type="number" name="system.durability.max" value="{{source.durability.max}}" min="0">
+        </div>
+        <div class="bar"><span style="width: {{system.durability.pct}}%"></span></div>
+        {{#if conditionLabel}}<div class="condition-badge">{{localize conditionLabel}}</div>{{/if}}
+      </div>
+    </div>
+  </header>
+
+  <table class="spindle-table vehicle-stats">
+    <thead>
+      <tr>
+        <th>{{localize "SPINDLE.Vehicle.Armor"}}</th>
+        <th>{{localize "SPINDLE.Vehicle.Maneuverability"}}</th>
+        <th>{{localize "SPINDLE.Vehicle.Speed"}}</th>
+        <th data-tooltip="SPINDLE.Vehicle.RamHint">{{localize "SPINDLE.Vehicle.Ram"}}</th>
+        <th data-tooltip="SPINDLE.Vehicle.ExplosionHint">{{localize "SPINDLE.Vehicle.Explosion"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="number" name="system.armor" value="{{source.armor}}" min="0"></td>
+        <td><input type="number" name="system.maneuverability" value="{{source.maneuverability}}"></td>
+        <td><input type="number" name="system.speed" value="{{source.speed}}" min="0"></td>
+        <td class="derived">{{system.ramDamage}}</td>
+        <td class="derived">{{system.explosionPower}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="ship-buttons">
+    <button type="button" data-action="rollD66" data-table="vehicleCrit"><i class="fa-solid fa-dice"></i> {{localize "SPINDLE.D66.vehicleCrit"}}</button>
+  </div>
+  <p class="hint">{{localize "SPINDLE.Vehicle.RulesHint"}}</p>
+
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Weapons" type="weapon"}}
+    <ol class="item-list simple-list">
+      {{#each items.weapon as |item|}}
+      <li class="item draggable" draggable="true" data-item-id="{{item.id}}">
+        <img class="item-img" src="{{item.img}}" alt="" data-action="itemUse" data-tooltip="SPINDLE.ToChat">
+        <span class="item-name" data-action="itemEdit">{{item.name}}</span>
+        <span class="item-note">{{localize "SPINDLE.Field.damage"}} {{item.system.damage}} · {{localize "SPINDLE.Field.critShort"}} {{item.system.crit}} · {{localize (lookup @root.rangeLabels item.system.range)}}</span>
+        {{> "systems/star-spindle/templates/actor/parts/item-controls.hbs"}}
+      </li>
+      {{else}}
+      <li class="empty">{{localize "SPINDLE.Empty"}}</li>
+      {{/each}}
+    </ol>
+  </section>
+
+  <section>
+    {{> "systems/star-spindle/templates/actor/parts/section-header.hbs" label="SPINDLE.Vehicle.Cargo" type="gear"}}
+    {{> "systems/star-spindle/templates/actor/parts/simple-list.hbs" items=items.gear}}
+  </section>
+
+  <div class="two-columns">
+    <section>
+      <header class="section-header"><h3>{{localize "SPINDLE.Vehicle.Criticals"}}</h3></header>
+      <div class="html-block small">
+        {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.criticals name="system.criticals" value=system.criticals enriched=enriched.criticals}}
+      </div>
+    </section>
+    <section>
+      <header class="section-header"><h3>{{localize "SPINDLE.Description"}}</h3></header>
+      <div class="html-block small">
+        {{> "systems/star-spindle/templates/actor/parts/html-field.hbs" field=fields.description name="system.description" value=system.description enriched=enriched.description}}
+      </div>
+    </section>
+  </div>
+
+  {{> "systems/star-spindle/templates/actor/parts/effects.hbs"}}
+</section>

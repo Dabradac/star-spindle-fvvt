@@ -274,3 +274,16 @@ SPINDLE.bonusTargets = () => {
   for (const [k, v] of Object.entries(SPINDLE.skills)) targets[`skill.${k}`] = v.label;
   return targets;
 };
+
+/**
+ * Таблицы бросков, которые можно привязать в настройках мира, и кубы для них.
+ * к66 — десятки и единицы двумя к6, к6 — один куб.
+ */
+SPINDLE.rollTables = {
+  injury: "d66",
+  shipCrit: "d66",
+  compartment: "d66",
+  jump: "d66",
+  wear: "d6",
+  vehicleCrit: "d6"
+};

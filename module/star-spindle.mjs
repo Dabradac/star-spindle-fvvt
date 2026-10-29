@@ -11,6 +11,7 @@ import { Chernobog } from "./chernobog.mjs";
 import { CharacterSheet } from "./sheets/character-sheet.mjs";
 import { NpcSheet } from "./sheets/npc-sheet.mjs";
 import { ShipSheet } from "./sheets/ship-sheet.mjs";
+import { VehicleSheet } from "./sheets/vehicle-sheet.mjs";
 import { SpindleItemSheet } from "./sheets/item-sheet.mjs";
 import { registerStatusEffects } from "./statuses.mjs";
 
@@ -26,7 +27,8 @@ Hooks.once("init", () => {
   Object.assign(CONFIG.Actor.dataModels, {
     character: actorModels.CharacterData,
     npc: actorModels.NpcData,
-    ship: actorModels.ShipData
+    ship: actorModels.ShipData,
+    vehicle: actorModels.VehicleData
   });
   Object.assign(CONFIG.Item.dataModels, {
     weapon: itemModels.WeaponData,
@@ -124,7 +126,7 @@ function registerSettings() {
     type: Boolean,
     default: false
   });
-  for (const table of ["injury", "shipCrit", "compartment", "jump"]) {
+  for (const table of Object.keys(SPINDLE.rollTables)) {
     world(`table.${table}`, {
       name: `SPINDLE.Settings.Table.${table}`,
       hint: "SPINDLE.Settings.Table.hint",
@@ -146,6 +148,9 @@ function registerSheets() {
   });
   Actors.registerSheet(SYSTEM_ID, ShipSheet, {
     types: ["ship"], makeDefault: true, label: "SPINDLE.Sheet.ship"
+  });
+  Actors.registerSheet(SYSTEM_ID, VehicleSheet, {
+    types: ["vehicle"], makeDefault: true, label: "SPINDLE.Sheet.vehicle"
   });
   Items.registerSheet(SYSTEM_ID, SpindleItemSheet, {
     makeDefault: true, label: "SPINDLE.Sheet.item"

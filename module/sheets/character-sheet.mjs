@@ -1,8 +1,19 @@
 import { SPINDLE } from "../config.mjs";
 import { SpindleActorSheet, templatePath } from "./base-actor-sheet.mjs";
 
-/** Строки таблицы «Характеристика — навыки» для листов персонажа и НИП. */
-export function prepareAttributeRows(system) {
+const ABILITY_TIERS = [1, 2, 3, 4, 5];
+
+/** Краткое описание предмета без разметки — для строк черт. */
+export function summarize(html, length = 140) {
+  const plain = (html ?? "").replace(/<[^>]+>/g, " ").replace(/&nbsp;/g, " ").replace(/&laquo;/g, "«").replace(/&raquo;/g, "»").replace(/\s+/g, " ").trim();
+  return plain.length > length ? `${plain.slice(0, length - 1).trimEnd()}…` : plain;
+}
+
+/**
+ * Строки таблицы «Характеристика — навыки» для листов персонажа и НИП.
+ * Если переданы особые способности, у каждого навыка появляются клетки уровней 1–5, как в листе из книги.
+ */
+export function prepareAttributeRows(system, abilities) {
   return Object.entries(SPINDLE.attributes).map(([key, label]) => ({
     key, label,
     value: system._source.attributes[key].value,
@@ -16,7 +27,11 @@ export function prepareAttributeRows(system) {
         value: system._source.skills[skillKey].value,
         bonus: system.skills[skillKey].bonus,
         total: system.skills[skillKey].total,
-        untrained: cfg.professional && !system.skills[skillKey].value
+        untrained: cfg.professional && !system.skills[skillKey].value,
+        tiers: abilities && ABILITY_TIERS.map(tier => ({
+          tier,
+          items: abilities.filter(a => (a.system.skill === skillKey) && (a.system.tier === tier))
+        }))
       }))
   }));
 }
@@ -31,7 +46,8 @@ export function prepareAbilities(items) {
 
 export class CharacterSheet extends SpindleActorSheet {
   static DEFAULT_OPTIONS = {
-    classes: ["character"]
+    classes: ["character"],
+    position: { width: 1000 }
   };
 
   static PARTS = {
@@ -62,8 +78,8 @@ export class CharacterSheet extends SpindleActorSheet {
     const context = await super._prepareContext(options);
     const system = this.document.system;
 
-    context.attributeRows = prepareAttributeRows(system);
-    context.abilities = prepareAbilities(context.items.ability);
+    context.attributeRows = prepareAttributeRows(system, context.items.ability ?? []);
+    context.abilityTiers = ABILITY_TIERS;
     context.factions = Object.entries(SPINDLE.factions).map(([key, label]) => ({
       key, label, value: system.factions[key]
     }));
@@ -79,6 +95,7 @@ export class CharacterSheet extends SpindleActorSheet {
       positive: traits.filter(t => t.system.kind === "positive"),
       negative: traits.filter(t => t.system.kind === "negative")
     };
+    context.traitSummaries = Object.fromEntries(traits.map(t => [t.id, summarize(t.system.description)]));
     // Правило книги: на каждые две положительные черты — одна отрицательная.
     context.traitsWarning = context.traits.negative.length < Math.floor(context.traits.positive.length / 2);
 

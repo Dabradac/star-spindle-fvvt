@@ -515,6 +515,8 @@ export class DicePool {
     const actor = await fromUuid(uuid);
     if (!actor) return;
     const isShip = actor.type === "ship";
+    // У ТС урон идёт по прочности, а броня работает как наземная: критические неудачи её снижают.
+    const isVehicle = actor.type === "vehicle";
     const baseArmor = isShip ? actor.system.attributes.armor.value : actor.system.armor;
     let damage = amount;
     if (pierce && !isShip && (baseArmor <= 0)) damage = Math.max(damage - 1, 0);
@@ -538,6 +540,8 @@ export class DicePool {
       const type = damageType ?? "structural";
       if (["structural", "both"].includes(type)) update["system.attributes.durability.value"] = attrs.durability.value - final;
       if (["system", "both"].includes(type)) update["system.attributes.energy.value"] = attrs.energy.value - final;
+    } else if (isVehicle) {
+      update["system.durability.value"] = actor.system.durability.value - final;
     } else {
       update["system.health.value"] = actor.system.health.value - final;
     }
@@ -547,7 +551,10 @@ export class DicePool {
     let armorDamaged = null;
     if (fumbles && !isShip) {
       if (cover > 0) armorDamaged = "cover";
-      else {
+      else if (isVehicle) {
+        await actor.update({ "system.armor": Math.max(actor.system.armor - fumbles, 0) });
+        armorDamaged = actor.name;
+      } else {
         const piece = actor.items.filter(i => i.type === "armor" && i.system.equipped && i.system.defense > 0)
           .sort((a, b) => b.system.defense - a.system.defense)[0];
         if (piece) {
@@ -571,8 +578,12 @@ export class DicePool {
       armorDamaged,
       coverDamaged: armorDamaged === "cover",
       isShip,
+      // Персонажи внутри ТС получают ситуативный урон, равный урону по ТС.
+      passengersDamage: isVehicle && final > 0 ? final : 0,
       damageType: damageType ? `SPINDLE.ShipDamage.${damageType}` : null,
-      condition: isShip ? null : actor.system.health.condition
+      condition: (isShip || isVehicle) ? null : actor.system.health.condition,
+      vehicleCondition: isVehicle && (actor.system.condition !== "ok")
+        ? `SPINDLE.Vehicle.Condition.${actor.system.condition}` : null
     });
     return ChatMessage.create({
       speaker: ChatMessage.getSpeaker({ actor }),
@@ -634,12 +645,14 @@ export class DicePool {
   /**
    * Бросок к66 (первый к6 — десятки, второй — единицы).
    * Если в настройках указана таблица, результат ищется в ней (диапазоны 11–66).
-   * @param {"injury"|"shipCrit"|"compartment"|"jump"} table
+   * Бросок по таблице к66 (или к6 — см. SPINDLE.rollTables).
+   * @param {string} table  Ключ из SPINDLE.rollTables
    */
   static async rollD66(table, { speaker } = {}) {
-    const roll = await new Roll("1d6 + 1d6").evaluate();
+    const single = SPINDLE.rollTables[table] === "d6";
+    const roll = await new Roll(single ? "1d6" : "1d6 + 1d6").evaluate();
     const [tens, units] = roll.dice.map(d => d.results[0].result);
-    const code = (tens * 10) + units;
+    const code = single ? tens : (tens * 10) + units;
     let text = "";
     const uuid = game.settings.get(SYSTEM_ID, `table.${table}`);
     if (uuid) {

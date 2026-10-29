@@ -3,7 +3,8 @@
     "Actor": {
       "character": "Character",
       "npc": "NPC",
-      "ship": "Ship"
+      "ship": "Ship",
+      "vehicle": "Vehicle"
     },
     "Item": {
       "weapon": "Weapon",
@@ -54,7 +55,8 @@
       "character": "Character Sheet",
       "npc": "NPC Sheet",
       "ship": "Ship Sheet",
-      "item": "Item Sheet"
+      "item": "Item Sheet",
+      "vehicle": "Vehicle Sheet"
     },
     "Supercredits": "Supercredits",
     "Reputation": "Reputation",
@@ -501,7 +503,9 @@
       "injury": "Injury (d66)",
       "shipCrit": "Critical damage (d66)",
       "compartment": "Random compartment (d66)",
-      "jump": "Failed jump (d66)"
+      "jump": "Failed jump (d66)",
+      "wear": "Ship wear (d6)",
+      "vehicleCrit": "Vehicle critical (d6)"
     },
     "Npc": {
       "Danger": "Danger",
@@ -557,7 +561,9 @@
         "shipCrit": "Ship critical damage table (UUID)",
         "compartment": "Random compartment table (UUID)",
         "jump": "Failed jump table (UUID)",
-        "hint": "UUID of a roll table with ranges 11–66 (e.g. from a compendium module). If empty only the d66 code is posted."
+        "hint": "UUID of a roll table with ranges 11–66 (1–6 for d6 tables), e.g. from a compendium module. If empty only the roll is posted.",
+        "wear": "Ship wear table (UUID, d6)",
+        "vehicleCrit": "Vehicle critical table (UUID, d6)"
       }
     },
     "Status": {
@@ -576,6 +582,28 @@
       "broken": "Broken",
       "cursed": "Cursed",
       "blind": "Blinded"
+    },
+    "Vehicle": {
+      "Name": "Vehicle",
+      "Kind": "Vehicle type",
+      "Seats": "Seats",
+      "Price": "Price",
+      "Durability": "Durability",
+      "Armor": "Armor",
+      "Maneuverability": "Maneuverability",
+      "Speed": "Speed",
+      "Ram": "Ram damage",
+      "RamHint": "Situational damage dealt to a vehicle that rams this one (half max durability, rounded up)",
+      "Explosion": "Explosion power",
+      "ExplosionHint": "If negative durability exceeds half the maximum the vehicle detonates with this power",
+      "RulesHint": "A character's speed in a vehicle equals the vehicle's; action points are spent only to change course or speed, otherwise the vehicle moves 3 times straight ahead. Maneuverability modifies piloting checks. Ramming is a standard action at point blank: +2 to the check, damage and crit 2, both vehicles take situational damage equal to half the other's max durability. Hitting cover deals situational damage equal to its armor class. A driver can only attack with light weapons on the move; no aimed or point-blank shots on the move.",
+      "PassengersDamage": "Situational damage to everyone inside",
+      "Cargo": "Cargo and gear",
+      "Criticals": "Critical damage",
+      "Condition": {
+        "wrecked": "Vehicle disabled",
+        "exploded": "Vehicle detonated"
+      }
     }
   }
 }

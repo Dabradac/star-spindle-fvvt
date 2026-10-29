@@ -102,11 +102,6 @@
   margin-bottom: 0.4rem;
 }
 
-.star-spindle .name-row .ornament {
-  color: var(--ss-red);
-  font-size: 1.6rem;
-}
-
 .star-spindle .name-row .title-label {
   font-family: var(--ss-title-font);
   color: var(--ss-red);
@@ -306,7 +301,7 @@
 }
 
 .star-spindle .skills-table th.attribute {
-  width: 26%;
+  width: 16%;
   font-size: 0.95rem;
 }
 
@@ -326,6 +321,48 @@
 .star-spindle .skills-table td.attribute-value small.effective { display: block; color: var(--ss-red); font-weight: bold; }
 .star-spindle .skills-table td.skill-total { font-weight: bold; width: 4.5rem; }
 .star-spindle .skills-table td.skill-total i { color: var(--ss-red); font-size: 0.8em; }
+
+/* Особые способности в строках навыков, по уровням 1–5 — как в листе из книги. */
+.star-spindle .skills-table { margin-bottom: 0.6rem; }
+.star-spindle .skills-table th.tier-head { font-size: 0.75rem; padding: 0 0.2rem; }
+.star-spindle .skills-table td.ability-cell {
+  width: 11%;
+  padding: 1px 2px;
+  vertical-align: middle;
+  font-size: 0.72rem;
+  line-height: 1.1;
+}
+.star-spindle .ability-chip {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--ss-pink);
+  border-radius: 3px;
+  padding: 1px 3px;
+  margin: 1px 0;
+}
+.star-spindle .ability-chip.used { opacity: 0.5; }
+.star-spindle .ability-chip .ability-name {
+  flex: 1;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-align: left;
+  color: #000;
+}
+.star-spindle .ability-chip .ability-use { color: var(--ss-red); }
+.star-spindle .ability-chip .ability-delete { color: var(--ss-muted); display: none; }
+.star-spindle .ability-chip:hover .ability-delete { display: inline; }
+.star-spindle .ability-add { color: var(--ss-line); display: block; text-align: center; }
+.star-spindle .ability-add:hover { color: var(--ss-red); }
+
+.star-spindle .traits-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.8rem;
+  align-items: start;
+}
 
 /* ---------- Секции и списки ---------- */
 
@@ -384,6 +421,16 @@
 
 .star-spindle .item-name { flex: 1; cursor: pointer; }
 .star-spindle .item-note { color: var(--ss-muted); font-size: 0.85em; }
+.star-spindle .item-summary {
+  flex: 2;
+  color: var(--ss-muted);
+  font-size: 0.8em;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.star-spindle .item-list > li:has(.item-summary) .item-name { flex: 0 1 auto; max-width: 45%; }
 
 .star-spindle .item-badge {
   background: var(--ss-pink);
@@ -507,6 +554,18 @@
 .star-spindle .crew-list .crew-member input.crew-role { width: 10rem; }
 .star-spindle .crew-list select { width: 11rem; }
 .star-spindle .crew-list .control { color: var(--ss-red); }
+
+/* ---------- Транспорт ---------- */
+
+.star-spindle .vehicle-body > * { margin-bottom: 0.5rem; }
+.star-spindle .vehicle-header { grid-template-columns: 90px minmax(0, 1fr) 220px; }
+.star-spindle .vehicle-header .resource-values input { width: 3rem; }
+.star-spindle .vehicle-header .condition { min-width: 0; }
+.star-spindle .vehicle-header .portrait { width: 90px; height: 90px; }
+.star-spindle .vehicle-stats td { text-align: center; }
+.star-spindle .vehicle-stats input { width: 4rem; text-align: center; }
+.star-spindle .vehicle-stats td.derived { font-weight: bold; font-size: 1.1rem; }
+.star-spindle.vehicle .ship-buttons { max-width: 260px; }
 
 /* ---------- НИП ---------- */
 

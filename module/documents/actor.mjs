@@ -8,7 +8,7 @@ export class SpindleActor extends Actor {
     if ((await super._preCreate(data, options, user)) === false) return false;
     const prototypeToken = {};
     if (this.type === "character") Object.assign(prototypeToken, { actorLink: true, disposition: 1 });
-    if (this.type === "ship") Object.assign(prototypeToken, { actorLink: true });
+    if (["ship", "vehicle"].includes(this.type)) Object.assign(prototypeToken, { actorLink: true });
     this.updateSource({ prototypeToken });
   }
 

@@ -388,3 +388,41 @@ export class ShipData extends foundry.abstract.TypeDataModel {
     };
   }
 }
+
+/* -------------------------------------------- */
+
+/**
+ * Наземное или воздушное транспортное средство (ТС).
+ * В бою скорость персонажа в ТС равна скорости ТС; при прочности 0 ТС выходит из строя,
+ * а когда отрицательная прочность превышает половину максимума — детонирует.
+ */
+export class VehicleData extends foundry.abstract.TypeDataModel {
+  static defineSchema() {
+    return {
+      kind: new StringField({ required: true, blank: true }),
+      durability: resource(0),
+      armor: int(0, { min: 0 }),
+      maneuverability: int(0),
+      speed: int(0, { min: 0 }),
+      seats: new StringField({ required: true, blank: true }),
+      price: int(0, { min: 0 }),
+      criticals: new HTMLField(),
+      description: new HTMLField()
+    };
+  }
+
+  prepareDerivedData() {
+    const dur = this.durability;
+    dur.pct = dur.max ? Math.clamp(Math.round(dur.value / dur.max * 100), 0, 100) : 0;
+    const half = Math.ceil(dur.max / 2);
+    if (dur.value > 0) this.condition = "ok";
+    else this.condition = (-dur.value > half) ? "exploded" : "wrecked";
+    // Мощность взрыва и урон тарана — половина максимальной прочности с округлением вверх.
+    this.explosionPower = half;
+    this.ramDamage = half;
+  }
+
+  getRollData() {
+    return { armor: this.armor, maneuverability: this.maneuverability, speed: this.speed };
+  }
+}

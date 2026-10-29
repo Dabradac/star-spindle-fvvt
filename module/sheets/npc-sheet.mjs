@@ -1,5 +1,5 @@
 import { SpindleActorSheet, templatePath } from "./base-actor-sheet.mjs";
-import { prepareAbilities, prepareAttributeRows } from "./character-sheet.mjs";
+import { prepareAbilities, prepareAttributeRows, summarize } from "./character-sheet.mjs";
 
 export class NpcSheet extends SpindleActorSheet {
   static DEFAULT_OPTIONS = {
@@ -18,6 +18,7 @@ export class NpcSheet extends SpindleActorSheet {
     const context = await super._prepareContext(options);
     context.attributeRows = prepareAttributeRows(this.document.system);
     context.abilities = prepareAbilities(context.items.ability);
+    context.traitSummaries = Object.fromEntries((context.items.trait ?? []).map(t => [t.id, summarize(t.system.description, 90)]));
     return context;
   }
 }

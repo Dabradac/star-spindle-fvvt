@@ -1,10 +1,16 @@
 <table class="spindle-table skills-table">
   <thead>
     <tr>
-      <th colspan="2">{{localize "SPINDLE.Attributes"}}</th>
-      <th colspan="2">{{localize "SPINDLE.Skills"}}</th>
-      <th data-tooltip="SPINDLE.TotalTooltip">{{localize "SPINDLE.Total"}}</th>
+      <th colspan="2" {{#if @root.abilityTiers}}rowspan="2"{{/if}}>{{localize "SPINDLE.Attributes"}}</th>
+      <th colspan="2" {{#if @root.abilityTiers}}rowspan="2"{{/if}}>{{localize "SPINDLE.Skills"}}</th>
+      <th data-tooltip="SPINDLE.TotalTooltip" {{#if @root.abilityTiers}}rowspan="2"{{/if}}>{{localize "SPINDLE.Total"}}</th>
+      {{#if @root.abilityTiers}}<th colspan="{{@root.abilityTiers.length}}">{{localize "SPINDLE.Abilities"}}</th>{{/if}}
     </tr>
+    {{#if @root.abilityTiers}}
+    <tr class="tier-row">
+      {{#each @root.abilityTiers as |t|}}<th class="tier-head">{{t}}</th>{{/each}}
+    </tr>
+    {{/if}}
   </thead>
   <tbody>
     {{#each attributeRows as |attr|}}
@@ -28,6 +34,19 @@
       <td class="skill-total">
         <a data-action="rollSkill" data-skill="{{skill.key}}">{{skill.total}}{{#if skill.bonus}}<small>{{numberFormat skill.bonus sign=true}}</small>{{/if}} <i class="fa-solid fa-dice-d20"></i></a>
       </td>
+      {{#each skill.tiers as |cell|}}
+      <td class="ability-cell">
+        {{#each cell.items as |item|}}
+        <div class="ability-chip item draggable {{#if item.system.used}}used{{/if}}" draggable="true" data-item-id="{{item.id}}">
+          <a class="ability-name" data-action="itemEdit" data-tooltip="{{item.name}}">{{item.name}}</a>
+          {{#if item.system.active}}<a class="ability-use" data-action="itemUse" data-tooltip="SPINDLE.Ability.Use"><i class="fa-solid fa-bolt"></i></a>{{/if}}
+          {{#if @root.editable}}<a class="ability-delete" data-action="itemDelete" data-tooltip="SPINDLE.Delete"><i class="fa-solid fa-xmark"></i></a>{{/if}}
+        </div>
+        {{else}}
+        {{#if @root.editable}}<a class="ability-add" data-action="itemCreate" data-type="ability" data-system-skill="{{skill.key}}" data-system-tier="{{cell.tier}}" data-tooltip="SPINDLE.Create"><i class="fa-solid fa-plus"></i></a>{{/if}}
+        {{/each}}
+      </td>
+      {{/each}}
     </tr>
     {{/each}}
     {{/each}}
