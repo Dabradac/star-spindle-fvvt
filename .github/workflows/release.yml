@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Подставить версию и ссылки в system.json
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          VERSION="${TAG#v}"
+          jq --arg v "$VERSION" \
+             --arg m "https://github.com/$REPO/releases/latest/download/system.json" \
+             --arg d "https://github.com/$REPO/releases/download/$TAG/star-spindle.zip" \
+             '.version = $v | .manifest = $m | .download = $d' system.json > system.tmp.json
+          mv system.tmp.json system.json
+
+      - name: Собрать архив
+        run: zip -r star-spindle.zip system.json module templates styles lang assets README.md
+
+      - name: Прикрепить файлы к релизу
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            system.json
+            star-spindle.zip

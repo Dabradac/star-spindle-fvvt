@@ -12,6 +12,7 @@ import { CharacterSheet } from "./sheets/character-sheet.mjs";
 import { NpcSheet } from "./sheets/npc-sheet.mjs";
 import { ShipSheet } from "./sheets/ship-sheet.mjs";
 import { SpindleItemSheet } from "./sheets/item-sheet.mjs";
+import { registerStatusEffects } from "./statuses.mjs";
 
 Hooks.once("init", () => {
   console.log(`${SYSTEM_ID} | Инициализация системы «Звёздное Веретено»`);
@@ -49,6 +50,7 @@ Hooks.once("init", () => {
   // Для корабля — к20 + лидерство капитана.
   CONFIG.Combat.initiative = { formula: "1d20 + @initiative", decimals: 0 };
 
+  registerStatusEffects();
   registerSettings();
   registerSheets();
   registerTemplates();
@@ -61,6 +63,16 @@ Hooks.once("ready", () => {
 
 Hooks.on("renderChatMessageHTML", (message, html) => DicePool.onRenderChatMessage(message, html));
 Hooks.on("renderPlayers", () => Chernobog.renderCounter());
+Hooks.on("renderGamePause", (app, html) => replacePauseIcon(html));
+
+/** Логотип системы вместо стандартного значка паузы. */
+function replacePauseIcon(html) {
+  const img = (html instanceof HTMLElement ? html : html?.[0])?.querySelector("img");
+  if (!img) return;
+  img.src = `systems/${SYSTEM_ID}/assets/logo.webp`;
+  img.classList.remove("fa-spin");
+  img.classList.add("spindle-logo");
+}
 
 /* -------------------------------------------- */
 

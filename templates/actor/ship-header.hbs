@@ -10,10 +10,10 @@
       <div class="cell"><label>{{localize "SPINDLE.Ship.Class"}}</label><select name="system.shipClass" data-dtype="Number">{{selectOptions classOptions selected=source.shipClass}}</select></div>
       <div class="cell"><label data-tooltip="SPINDLE.Ship.SizeHint">{{localize "SPINDLE.Ship.Size"}}</label><input type="number" name="system.size" value="{{source.size}}" min="0"></div>
       <div class="cell"><label>{{localize "SPINDLE.Ship.Hull"}}</label><input type="text" name="system.hull" value="{{source.hull}}"></div>
-      <div class="cell"><label>{{localize "SPINDLE.Ship.BaseCost"}}</label><input type="number" name="system.baseCost" value="{{source.baseCost}}"></div>
+      <div class="cell wide"><label>{{localize "SPINDLE.Ship.BaseCost"}}</label><input type="number" name="system.baseCost" value="{{source.baseCost}}"></div>
       <div class="cell"><label>{{localize "SPINDLE.Ship.LastMaintenance"}}</label><input type="text" name="system.lastMaintenance" value="{{source.lastMaintenance}}"></div>
-      <div class="cell wide"><label>{{localize "SPINDLE.Ship.HullBonuses"}}</label><textarea name="system.hullBonuses" rows="2">{{source.hullBonuses}}</textarea></div>
-      <div class="cell wide"><label>{{localize "SPINDLE.Ship.Flaw"}}</label><textarea name="system.flaw" rows="2">{{source.flaw}}</textarea></div>
+      <div class="cell half"><label>{{localize "SPINDLE.Ship.HullBonuses"}}</label><textarea name="system.hullBonuses" rows="2">{{source.hullBonuses}}</textarea></div>
+      <div class="cell half"><label>{{localize "SPINDLE.Ship.Flaw"}}</label><textarea name="system.flaw" rows="2">{{source.flaw}}</textarea></div>
     </div>
   </div>
   <div class="condition debt">

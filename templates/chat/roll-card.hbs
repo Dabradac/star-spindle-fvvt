@@ -19,6 +19,13 @@
     <span class="die bonus {{d.cls}}" data-tooltip="SPINDLE.Prayer.Blessing">{{d.value}}</span>
     {{/each}}
   </div>
+  {{#if autoDice.length}}
+  <div class="auto-row">
+    <span class="auto-label">{{localize "SPINDLE.Attack.AutoDice"}}:</span>
+    <div class="dice-row">{{#each autoDice as |d|}}<span class="die {{d.cls}}">{{d.value}}</span>{{/each}}</div>
+    <p class="hint">{{localize "SPINDLE.Attack.AutoHint"}}</p>
+  </div>
+  {{/if}}
   <div class="roll-result">
     <span class="successes">{{signedSuccesses}}</span>
     <span class="outcome">{{localize outcomeLabel}}</span>

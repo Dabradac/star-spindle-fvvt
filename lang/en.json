@@ -330,11 +330,11 @@
       "down": "Broken",
       "dead": "Insane"
     },
-    "Speed": "Speed, m/turn",
+    "Speed": "Speed",
     "BulkySpeed": "Bulky armor or weapons halve speed",
     "XP": {
       "value": "Experience",
-      "next": "Next level at"
+      "next": "Next level"
     },
     "Origin": {
       "label": "Origin",
@@ -429,7 +429,9 @@
       "InjuryPossible": "An injury can be inflicted",
       "ShipCritPossible": "A critical hit can be inflicted",
       "ExtraHint": "Extra successes: +1 damage, injury (costs crit), intimidation/suppression, disarm, +2 initiative, grapple",
-      "ShipExtraHint": "Extra successes: +1 damage or a critical hit (costs crit)"
+      "ShipExtraHint": "Extra successes: +1 damage or a critical hit (costs crit)",
+      "AutoDice": "Burst",
+      "AutoHint": "Burst dice count normally until a 1–4 is rolled. Reload afterwards. Successes may be split between targets within close range."
     },
     "Difficulty": {
       "elementary": "Elementary",
@@ -448,7 +450,7 @@
       "fumble": "Fumble"
     },
     "Prayer": {
-      "Pray": "Pray: reroll the selected dice",
+      "Pray": "Pray",
       "GmReroll": "Reroll (1 Chernobog token)",
       "Hint": "Click dice to select them. With nothing selected all non-successes are rerolled. Prayer: 1 Will damage + 1 per rolled 1, the GM gains a Chernobog token.",
       "Atheist": "An atheist has no one to pray to",
@@ -505,10 +507,10 @@
       "DangerHint": "1 — attacks in packs, 2 — alone, 3 — against a whole group",
       "Rarity": "Rarity",
       "RarityHint": "Modifier to Science and Culture checks to identify",
-      "ActionPoints": "Action points",
-      "Defenses": "Defenses (resistances and vulnerabilities)",
+      "ActionPoints": "Action pts",
+      "Defenses": "Defenses",
       "DefensesPlaceholder": "Resistant to poison, vulnerable to fire…",
-      "UseFormula": "Health and Will from formula",
+      "UseFormula": "Auto Health and Will",
       "Traits": "Traits"
     },
     "Energy": {
@@ -556,6 +558,23 @@
         "jump": "Failed jump table (UUID)",
         "hint": "UUID of a roll table with ranges 11–66 (e.g. from a compendium module). If empty only the d66 code is posted."
       }
+    },
+    "Status": {
+      "shock": "Shock",
+      "stunned": "Stunned",
+      "helpless": "Helpless",
+      "fatigued": "Fatigued",
+      "exhausted": "Exhausted",
+      "immobilized": "Immobilized",
+      "sick": "Sick",
+      "entranced": "Entranced",
+      "poisoned": "Poisoned",
+      "prone": "Prone",
+      "bleeding": "Bleeding",
+      "incapacitated": "Incapacitated",
+      "broken": "Broken",
+      "cursed": "Cursed",
+      "blind": "Blinded"
     }
   }
 }

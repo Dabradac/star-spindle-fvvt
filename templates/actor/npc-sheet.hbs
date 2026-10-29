@@ -25,11 +25,11 @@
           <input type="number" name="system.speed" value="{{source.speed}}">
         </div>
         <div class="cell wide">
-          <label>{{localize "SPINDLE.Npc.Defenses"}}</label>
+          <label data-tooltip="SPINDLE.Npc.DefensesPlaceholder">{{localize "SPINDLE.Npc.Defenses"}}</label>
           <input type="text" name="system.defenses" value="{{source.defenses}}" placeholder="{{localize 'SPINDLE.Npc.DefensesPlaceholder'}}">
         </div>
-        <div class="cell wide">
-          <label>{{localize "SPINDLE.Npc.UseFormula"}}</label>
+        <div class="cell">
+          <label data-tooltip="SPINDLE.Npc.UseFormula">{{localize "SPINDLE.Npc.UseFormula"}}</label>
           <input type="checkbox" name="system.useFormula" {{checked source.useFormula}}>
         </div>
       </div>

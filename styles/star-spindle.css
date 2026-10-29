@@ -90,7 +90,8 @@
   height: 110px;
   object-fit: cover;
   border: 2px solid var(--ss-red);
-  background: #fff;
+  /* Тёмный фон: стандартный портрет Foundry — белый силуэт. */
+  background: #2a2020;
   cursor: pointer;
 }
 
@@ -126,16 +127,27 @@
 
 .star-spindle .header-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-flow: row dense;
   border: 1px solid var(--ss-red);
+  background: #fff;
 }
 
 .star-spindle .header-grid .cell {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   border-right: 1px dashed var(--ss-line);
   border-bottom: 1px dashed var(--ss-line);
 }
+
+.star-spindle .header-grid .cell > label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.star-spindle .header-grid .cell > :not(label) { flex: 1; }
 
 .star-spindle .header-grid .cell.wide { grid-column: span 2; }
 
@@ -155,6 +167,7 @@
 
 .star-spindle .header-grid input {
   width: 100%;
+  min-width: 0;
   border: none;
   background: transparent;
   text-align: center;
@@ -463,7 +476,11 @@
 
 /* ---------- Корабль ---------- */
 
-.star-spindle .ship-header { grid-template-columns: 110px 1fr 280px; }
+.star-spindle .ship-header { grid-template-columns: 110px 1fr 260px; }
+.star-spindle .ship-header .header-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.star-spindle .ship-header .header-grid .cell.half { grid-column: span 3; }
+.star-spindle .ship-header .header-grid .cell > label { white-space: normal; min-height: 2.3em; display: flex; align-items: center; justify-content: center; }
+.star-spindle .header-grid textarea { min-height: 2.6rem; height: 100%; }
 
 .star-spindle .ship-grid {
   display: grid;
@@ -474,7 +491,13 @@
 
 .star-spindle .ship-attributes input[type="number"] { width: 100%; }
 
-.star-spindle .module-table .state { width: 4.5rem; }
+.star-spindle .module-table { table-layout: fixed; }
+.star-spindle .module-table th.name,
+.star-spindle .module-table td.name { width: 24%; overflow: hidden; text-overflow: ellipsis; }
+.star-spindle .module-table .state,
+.star-spindle .module-table .state-head { width: 11%; }
+.star-spindle .module-table th:last-child,
+.star-spindle .module-table td:last-child { width: 70px; }
 .star-spindle .module-table .state-head { font-size: 0.65rem; background: var(--ss-pink); color: var(--ss-red); }
 .star-spindle .module-table tr.state-glitch td.name { box-shadow: inset 4px 0 #e0a000; }
 .star-spindle .module-table tr.state-broken td.name { box-shadow: inset 4px 0 var(--ss-red); }
@@ -488,8 +511,9 @@
 /* ---------- НИП ---------- */
 
 .star-spindle.npc .window-content { gap: 0.5rem; }
-.star-spindle .npc-header { grid-template-columns: 90px 1fr; }
+.star-spindle .npc-header { grid-template-columns: 90px 1fr 230px; }
 .star-spindle .npc-header .portrait { width: 90px; height: 90px; }
+.star-spindle .npc-header .header-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 0.3rem; }
 
 .star-spindle .npc-attributes {
   display: grid;
@@ -676,7 +700,13 @@
 
 .star-spindle.roll-card .attack-result .crit { color: var(--ss-red); }
 .star-spindle.roll-card .damage-buttons { display: flex; gap: 0.3rem; margin-top: 0.3rem; }
-.star-spindle.roll-card button { line-height: 1.6rem; }
+.star-spindle.roll-card button {
+  height: auto;
+  min-height: 1.8rem;
+  line-height: 1.25;
+  padding: 0.25rem 0.5rem;
+  white-space: normal;
+}
 .star-spindle.roll-card .push-button { margin-top: 0.4rem; width: 100%; }
 
 /* ---------- Состояния, кнопки и мелочи ---------- */
@@ -705,6 +735,11 @@
 .star-spindle .rest-button,
 .star-spindle .ship-buttons button {
   width: 100%;
+  height: auto;
+  min-height: 1.9rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  line-height: 1.2;
   margin-bottom: 0.3rem;
   background: var(--ss-red);
   color: #fff;
@@ -749,3 +784,21 @@
 #spindle-chernobog strong { color: #ff6b6b; font-size: 1.1rem; }
 #spindle-chernobog a { color: #f3dede; cursor: pointer; }
 #spindle-chernobog a:hover { color: #ff6b6b; }
+
+/* ---------- Экран паузы ---------- */
+
+#pause img {
+  content: url("../assets/logo.webp");
+  animation: none;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 18px rgba(168, 13, 13, 0.8));
+}
+#pause img.spindle-logo { animation: spindle-pause-pulse 4s ease-in-out infinite; }
+
+@keyframes spindle-pause-pulse {
+  0%, 100% { filter: drop-shadow(0 0 12px rgba(168, 13, 13, 0.6)); }
+  50% { filter: drop-shadow(0 0 28px rgba(255, 60, 60, 0.95)); }
+}
+
+.star-spindle.roll-card .auto-row { border-top: 1px dashed var(--ss-line); margin-top: 0.2rem; }
+.star-spindle.roll-card .auto-label { font-size: 0.8em; color: var(--ss-muted); }

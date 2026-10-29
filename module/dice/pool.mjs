@@ -183,9 +183,9 @@ export class DicePool {
       difficulties: SPINDLE.difficulties.map(d => ({ ...d, signed: sign(d.value), selected: d.value === 0 })),
       heroTokens: game.settings.get(SYSTEM_ID, "heroTokens") ? (sys.heroTokens ?? 0) : 0,
       influence: (config.skill === "influence") && ("reputation" in sys),
-      attackModes: kind ? Object.entries(SPINDLE.attackModes[kind]).map(([key, m]) => ({
-        key, label: m.label, signed: sign(m.mod), selected: key === config.attackMode
-      })) : null,
+      attackModes: kind ? Object.entries(SPINDLE.attackModes[kind])
+        .filter(([key]) => (key !== "auto") || options.item.system.automatic)
+        .map(([key, m]) => ({ key, label: m.label, signed: sign(m.mod), selected: key === config.attackMode })) : null,
       ranges: (kind && kind !== "melee")
         ? Object.entries(kind === "ship" ? SPINDLE.shipRanges : SPINDLE.ranges).map(([key, r]) => ({
           key, label: r.label, signed: sign(r.mod), selected: key === config.range
@@ -254,6 +254,20 @@ export class DicePool {
     const roll = await new Roll(`${dice}d20`).evaluate();
     const results = roll.dice[0].results.map(r => r.result);
 
+    // Автоматический огонь: после проверки к20 бросаются по одному, пока не выпадет 1–4.
+    // Молитва перебрасывает только кубы основной проверки.
+    const autoResults = [];
+    const extraRolls = [];
+    if (["auto", "burst"].includes(attackMode)) {
+      let result;
+      do {
+        const one = await new Roll("1d20").evaluate();
+        extraRolls.push(one);
+        result = one.total;
+        autoResults.push(result);
+      } while ((result > 4) && (autoResults.length < 50));
+    }
+
     const state = {
       actorUuid: actor.uuid,
       shipUuid: ship?.uuid ?? null,
@@ -266,6 +280,7 @@ export class DicePool {
       mode,
       results,
       bonusResults: [],
+      autoResults,
       prayers: 0,
       resist: resist ?? null
     };
@@ -274,7 +289,7 @@ export class DicePool {
     if ((skill === "witchcraft") && (actor.type === "character") && game.settings.get(SYSTEM_ID, "autoTokens")) {
       Chernobog.add(1, game.i18n.format("SPINDLE.Chernobog.Witchcraft", { name: actor.name }));
     }
-    return this.toMessage(state, roll, actor);
+    return this.toMessage(state, roll, actor, extraRolls);
   }
 
   /** Бросок фиксированного числа кубов (ситуативный урон, упрощённые правила Мастера). */
@@ -341,9 +356,9 @@ export class DicePool {
   /*  Карточка в чате                             */
   /* -------------------------------------------- */
 
-  static async toMessage(state, roll, actor) {
+  static async toMessage(state, roll, actor, extraRolls = []) {
     const item = state.itemUuid ? await fromUuid(state.itemUuid) : null;
-    const successes = this.score(state.results, state.mode, state.bonusResults);
+    const successes = this.score(state.results, state.mode, [...state.bonusResults, ...(state.autoResults ?? [])]);
     const outcome = this.outcome(successes);
     const isCharacter = actor.type === "character";
 
@@ -359,6 +374,7 @@ export class DicePool {
       outcomeLabel: `SPINDLE.Outcome.${outcome}`,
       dice: state.results.map((r, index) => ({ ...describe(r), index, rerolled: state.rerolled?.includes(index) })),
       bonusDice: state.bonusResults.map(describe),
+      autoDice: (state.autoResults ?? []).map(describe),
       parts: state.parts.map(p => ({ ...p, signed: sign(p.value) })),
       modeHint: state.mode === "normal" ? null : `SPINDLE.Roll.Mode.${state.mode}`,
       canPray: isCharacter ? actor.system.canPray : true,
@@ -393,7 +409,7 @@ export class DicePool {
     const data = {
       speaker: ChatMessage.getSpeaker({ actor }),
       content,
-      rolls: [roll],
+      rolls: [roll, ...extraRolls],
       sound: CONFIG.sounds.dice,
       flags: { [SYSTEM_ID]: { pool: state } }
     };
