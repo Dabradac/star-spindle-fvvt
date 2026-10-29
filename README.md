@@ -7,14 +7,6 @@
 
 **Через манифест** (после первого релиза на GitHub):
 Foundry → *Game Systems* → *Install System* → вставить ссылку на манифест:
-
-```
-https://github.com/dabradac/star-spindle_fvvt/releases/latest/download/system.json
-```
-
-**Вручную (для разработки):** склонировать репозиторий в `Data/systems/star-spindle`
-(папка должна называться так же, как `id` в `system.json`).
-
 ## Что есть в системе
 
 ### Актёры
@@ -158,8 +150,3 @@ templates/              Handlebars-шаблоны
 styles/                 оформление
 lang/                   русский и английский
 ```
-
-## Релиз
-
-Создайте релиз на GitHub с тегом вида `v0.1.0`. Workflow `.github/workflows/release.yml` подставит версию в `system.json`,
-соберёт `star-spindle.zip` и прикрепит оба файла к релизу, после чего ссылка на манифест выше начнёт работать.
