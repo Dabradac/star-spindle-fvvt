@@ -91,7 +91,7 @@ export class DicePool {
       range: item?.system.range ?? null,
       engaged: false,
       locked: true,
-      enabled: modifiers.map(() => true)
+      enabled: modifiers.map(m => !m.conditional)
     };
 
     let config = defaults;
@@ -102,7 +102,7 @@ export class DicePool {
     // Атрибут и навык могли смениться в диалоге — бонусы предметов пересчитываются.
     const finalMods = ((config.skill === skill) && (config.attribute === attribute))
       ? modifiers.filter((m, i) => config.enabled[i])
-      : this.#collectModifiers(actor, config.skill, item, ship);
+      : this.#collectModifiers(actor, config.skill, item, ship).filter(m => !m.conditional);
 
     const parts = [];
     const base = sys.attributes?.[config.attribute]?.value ?? 0;
@@ -141,7 +141,7 @@ export class DicePool {
       if (value) mods.push({ label: item.name, value });
     }
     if (actor.system.getSkillBonuses) {
-      mods.push(...actor.system.getSkillBonuses(skill).map(b => ({ label: b.name, value: b.value })));
+      mods.push(...actor.system.getSkillBonuses(skill).map(b => ({ label: b.name, value: b.value, conditional: b.conditional })));
     }
     if (actor.system.getSituationalModifiers) mods.push(...actor.system.getSituationalModifiers(skill));
     if (ship?.system.getCrewModifiers) mods.push(...ship.system.getCrewModifiers(skill));
@@ -645,7 +645,14 @@ export class DicePool {
     if (uuid) {
       const rollTable = await fromUuid(uuid);
       const results = rollTable?.getResultsForRoll?.(code) ?? [];
-      text = results.map(r => r.description || r.text || r.name).filter(Boolean).join("<br>");
+      const parts = [];
+      for (const r of results) {
+        const name = r.name ? `<strong>${r.name}</strong>` : "";
+        const desc = r.description || r.text || "";
+        parts.push([name, desc].filter(Boolean).join(": "));
+      }
+      // Ссылки @UUID в результатах таблиц (например, на травмы из компендиума) становятся кликабельными.
+      text = await foundry.applications.ux.TextEditor.implementation.enrichHTML(parts.join("<br>"));
     }
     const content = `<div class="star-spindle roll-card d66-card">
       <header class="roll-header"><h3>${game.i18n.localize(`SPINDLE.D66.${table}`)}</h3></header>

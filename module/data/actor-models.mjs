@@ -106,7 +106,7 @@ class CreatureData extends foundry.abstract.TypeDataModel {
   /**
    * Бонусы к проверке навыка от предметов, особых способностей и черт.
    * @param {string} skill
-   * @returns {{name: string, value: number}[]}
+   * @returns {{name: string, value: number, conditional: boolean}[]}
    */
   getSkillBonuses(skill) {
     const bonuses = [];
@@ -117,7 +117,7 @@ class CreatureData extends foundry.abstract.TypeDataModel {
       // Снаряжение работает, пока его носят с собой, а не держат в каюте.
       if (sys.stored) continue;
       const value = sys.modifier + (sys.quality ?? 0);
-      if (value) bonuses.push({ name: item.name, value });
+      if (value) bonuses.push({ name: item.name, value, conditional: !!sys.conditional });
     }
     return bonuses;
   }

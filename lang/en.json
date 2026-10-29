@@ -208,7 +208,8 @@
       "damageType": "Damage type",
       "ignoresArmor": "Ignores armor",
       "moduleUpgrades": "Module upgrades",
-      "costPercent": "Cost, % of ship price"
+      "costPercent": "Cost, % of ship price",
+      "conditional": "Situational only (off by default in rolls)"
     },
     "Ship": {
       "Name": "Ship Name",

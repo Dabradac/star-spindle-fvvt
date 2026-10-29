@@ -17,7 +17,9 @@ const bool = (initial, label) => new BooleanField({ initial, label: L(label) });
 
 const bonusFields = () => ({
   modifier: int(0, "modifier"),
-  bonusTarget: str("bonusTarget", { choices: SPINDLE.bonusTargets })
+  bonusTarget: str("bonusTarget", { choices: SPINDLE.bonusTargets }),
+  // Бонус действует только в особых условиях: в диалоге броска он выключен по умолчанию.
+  conditional: bool(false, "conditional")
 });
 
 /* -------------------------------------------- */

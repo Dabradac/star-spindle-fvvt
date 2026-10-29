@@ -50,7 +50,7 @@
   <fieldset>
     <legend>{{localize "SPINDLE.Roll.Bonuses"}}</legend>
     {{#each modifiers as |m|}}
-    <label class="checkbox"><input type="checkbox" name="mod" checked> {{localize m.label}} ({{m.signed}})</label>
+    <label class="checkbox {{#if m.conditional}}conditional{{/if}}"><input type="checkbox" name="mod" {{#unless m.conditional}}checked{{/unless}}> {{localize m.label}} ({{m.signed}}){{#if m.conditional}} <i class="fa-solid fa-circle-question" data-tooltip="SPINDLE.Field.conditional"></i>{{/if}}</label>
     {{/each}}
   </fieldset>
   {{/if}}
