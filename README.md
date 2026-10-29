@@ -107,32 +107,6 @@ game.starSpindle.DicePool.rollD66("injury");
 game.starSpindle.Chernobog.add(1, "Подкрепление");
 ```
 
-## Компендиумы в отдельном модуле
-
-Система не содержит компендиумов. Модуль с ними создаётся отдельно; в его `module.json` нужно указать
-зависимость от системы и паки с `"system": "star-spindle"`:
-
-```json
-{
-  "id": "star-spindle-compendium",
-  "title": "Звёздное Веретено — компендиум",
-  "version": "0.1.0",
-  "compatibility": { "minimum": "13", "verified": "13" },
-  "relationships": {
-    "systems": [{ "id": "star-spindle", "type": "system", "compatibility": { "minimum": "0.1.0" } }]
-  },
-  "packs": [
-    { "name": "specializations", "label": "Специализации", "type": "Item", "system": "star-spindle", "path": "packs/specializations" },
-    { "name": "abilities", "label": "Особые способности", "type": "Item", "system": "star-spindle", "path": "packs/abilities" },
-    { "name": "tables", "label": "Таблицы к66", "type": "RollTable", "path": "packs/tables" },
-    { "name": "equipment", "label": "Снаряжение и оружие", "type": "Item", "system": "star-spindle", "path": "packs/equipment" },
-    { "name": "ship-parts", "label": "Модули и оружие кораблей", "type": "Item", "system": "star-spindle", "path": "packs/ship-parts" }
-  ]
-}
-```
-
-Типы предметов для паков: `specialization`, `ability`, `trait`, `weapon`, `armor`, `gear`, `implant`, `injury`,
-`shipWeapon`, `shipModule`, `shipUpgrade`, `cargo`.
 
 ## Структура
 
